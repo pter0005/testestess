@@ -31,9 +31,9 @@
 
     --border: 0 0% 20%; /* Cinza escuro para bordas gerais */
     
-    /* Inputs CLAROS com texto ESCURO, como na imagem de referência do login */
-    --input: 0 0% 93%; /* Ex: bg-gray-100 (#ECECEC) ou um branco levemente acinzentado */
-    --input-foreground: 0 0% 13%; /* Ex: text-gray-900 (#1f2937) ou um preto/cinza bem escuro */
+    /* Inputs ESCUROS com texto CLARO para alinhar com o tema dark */
+    --input: 0 0% 10%; /* Um cinza escuro para o fundo do input */
+    --input-foreground: 0 0% 90%; /* Um cinza claro para o texto do input */
     
     --ring: 26 95% 53%; /* Laranja para anel de foco */
     
