@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true, // Mantendo a configuração existente
+  reactStrictMode: true,
   images: {
-    domains: ['i.imgur.com', 'placehold.co'], // adicionei placehold.co
+    domains: ['i.imgur.com', 'placehold.co'],
   },
 }
 
