@@ -11,9 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'PTER-VEO3 Access',
-  description: 'Plataforma de aprendizado VEO3',
-  viewport: 'width=device-width, initial-scale=1',
+  title: 'Meu App Next.js',
+  description: 'Gerado pelo Firebase Studio',
 };
 
 export default function RootLayout({
