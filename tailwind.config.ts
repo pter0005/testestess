@@ -4,9 +4,8 @@ import type {Config} from 'tailwindcss';
 export default {
   darkMode: ['class'],
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}', // Changed from ./src/app to ./app
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    // Removed './src/pages/**/*.{js,ts,jsx,tsx,mdx}' as it's for the old pages router
   ],
   theme: {
     extend: {
@@ -47,8 +46,8 @@ export default {
           foreground: 'hsl(var(--destructive-foreground))',
         },
         border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))', // For input background
-        'input-foreground': 'hsl(var(--input-foreground))', // For input text color
+        input: 'hsl(var(--input))', 
+        'input-foreground': 'hsl(var(--input-foreground))', 
         ring: 'hsl(var(--ring))',
         chart: {
           '1': 'hsl(var(--chart-1))',
