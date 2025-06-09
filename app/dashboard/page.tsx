@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Footer from '@/components/layout/Footer';
 import { ModuleCard, type ModuleCardProps } from '@/components/dashboard/ModuleCard';
-import { UserCircle, Search, Bell, ArrowLeft, Bot, ShoppingBag, Star, PlayCircle } from 'lucide-react'; 
+import { UserCircle, Search, Bell, ArrowLeft, Bot, ShoppingBag, Star, PlayCircle, BrainCircuit, MessageSquare, UploadCloud } from 'lucide-react'; 
 import InteractiveBackground from '@/components/common/InteractiveBackground';
 import { useRouter } from 'next/navigation';
 
@@ -17,7 +17,26 @@ const modulesData: Omit<ModuleCardProps, 'aulasCount'>[] = [
     imageUrl: 'https://i.imgur.com/MFaqsLj.jpeg',
     dataAiHint: 'abstract tech',
     linkUrl: '/dashboard/aula/o-segredo-da-veo3',
-    // buttonText and buttonIcon will use defaults from ModuleCard ("Assistir agora", PlayCircle)
+    buttonIcon: PlayCircle,
+    buttonText: "Assistir agora",
+  },
+  {
+    title: 'Tudo Sobre Redes Sociais',
+    description: 'Domine as redes e viralize!',
+    imageUrl: 'https://i.imgur.com/EnRyxx3.png',
+    dataAiHint: 'social media strategy',
+    linkUrl: '/dashboard/aula/tudo-sobre-redes-sociais',
+    buttonIcon: PlayCircle,
+    buttonText: "Assistir agora",
+  },
+  {
+    title: 'Seja Afiliado',
+    description: 'Divulgue o curso e ganhe comissões!',
+    imageUrl: 'https://i.imgur.com/bYVF0Ak.jpeg',
+    dataAiHint: 'affiliate marketing business',
+    linkUrl: '/dashboard/afiliado',
+    buttonIcon: ShoppingBag,
+    buttonText: "Saiba Mais",
   },
   {
     title: 'Bot Criador de Prompts',
@@ -30,29 +49,12 @@ const modulesData: Omit<ModuleCardProps, 'aulasCount'>[] = [
   },
   {
     title: '1 ANO DE ASSINATURA GOOGLE VEO 3',
-    description: 'Aula: Como obter sua assinatura gratuita do Google VEO3, incluindo Gemini, Flow e Google One.',
+    description: 'Aula: Como obter sua assinatura gratuita.',
     imageUrl: 'https://i.imgur.com/7Vd3YNK.png', 
     dataAiHint: 'subscription service technology',
     linkUrl: '/dashboard/assinatura-veo3',
     buttonText: 'Assistir Aula', 
     buttonIcon: Star,
-  },
-  {
-    title: 'Tudo Sobre Redes Sociais',
-    description: 'Domine as redes e viralize!',
-    imageUrl: 'https://i.imgur.com/EnRyxx3.png',
-    dataAiHint: 'social media strategy',
-    linkUrl: '/dashboard/aula/tudo-sobre-redes-sociais',
-    // buttonText and buttonIcon will use defaults
-  },
-  {
-    title: 'Seja Afiliado',
-    description: 'Divulgue o curso "Domine o Google Veo 3" e ajude milhares de pessoas a criarem vídeos profissionais com inteligência artificial.',
-    imageUrl: 'https://i.imgur.com/bYVF0Ak.jpeg',
-    dataAiHint: 'affiliate marketing business',
-    linkUrl: '/dashboard/afiliado',
-    buttonIcon: ShoppingBag,
-    buttonText: "Saiba Mais",
   },
 ];
 

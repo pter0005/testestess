@@ -30,11 +30,14 @@
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 20%; /* Cinza escuro para bordas gerais */
-    --input: 0 0% 93%; /* Cinza bem claro para fundo de input (bg-gray-100) */
-    --input-foreground: 20 14.3% 4.1%; /* Texto escuro para inputs (text-gray-900) */
+    
+    /* Variáveis para inputs claros em fundo escuro (conforme imagem de referência) */
+    --input: 0 0% 93%; /* bg-gray-100 ou similar - DEVE SER CLARO */
+    --input-foreground: 20 14.3% 4.1%; /* text-gray-900 ou similar - DEVE SER ESCURO */
+    
     --ring: 26 95% 53%; /* Laranja para anel de foco */
     
-    --radius: 0.5rem; /* Raio de borda padrão reduzido para um visual mais sharp */
+    --radius: 0.5rem; 
 
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
@@ -44,9 +47,7 @@
   }
 
   .dark {
-    /* Mantém as mesmas variáveis, pois o tema base já é escuro.
-       Se você tivesse um tema claro e quisesse alternar,
-       você definiria variáveis diferentes aqui. */
+    /* Mantém as mesmas variáveis, pois o tema base já é escuro. */
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 98%;
     --card: 20 10% 9%;
@@ -64,8 +65,8 @@
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 20%;
-    --input: 0 0% 93%; /* bg-gray-100 */
-    --input-foreground: 20 14.3% 4.1%; /* text-gray-900 */
+    --input: 0 0% 93%; /* Garante que input claro seja usado */
+    --input-foreground: 20 14.3% 4.1%; /* Garante texto escuro para input */
     --ring: 26 95% 53%;
   }
 }

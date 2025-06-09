@@ -24,7 +24,7 @@ const formSchema = z.object({
   email: z.string().email({
     message: "Por favor, insira um email válido.",
   }),
-  password: z.string().min(1, { // Mínimo de 1 para teste, pode ser ajustado
+  password: z.string().min(1, { 
     message: "A senha é obrigatória.",
   }),
 });
@@ -68,7 +68,7 @@ export default function LoginForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4"> {/* Espaçamento entre campos */}
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full"> {/* Espaçamento entre campos */}
         <FormField
           control={form.control}
           name="email"
@@ -78,9 +78,9 @@ export default function LoginForm() {
               <FormControl>
                 <Input 
                   type="email"
-                  placeholder="" // Sem placeholder conforme imagem
+                  placeholder="" 
                   {...field} 
-                  className="bg-gray-100 text-gray-900 border-gray-300 placeholder-gray-400 focus:bg-white focus:border-primary text-sm h-10" // Estilo de input claro
+                  className="bg-input text-input-foreground border-gray-300 placeholder-gray-400 focus:bg-white focus:border-primary text-sm h-10" 
                   disabled={isLoggingIn}
                 />
               </FormControl>
@@ -98,16 +98,16 @@ export default function LoginForm() {
                 <div className="relative">
                   <Input 
                     type={showPassword ? "text" : "password"} 
-                    placeholder="" // Sem placeholder
+                    placeholder="" 
                     {...field} 
-                    className="bg-gray-100 text-gray-900 border-gray-300 placeholder-gray-400 focus:bg-white focus:border-primary pr-10 text-sm h-10" // Estilo de input claro
+                    className="bg-input text-input-foreground border-gray-300 placeholder-gray-400 focus:bg-white focus:border-primary pr-10 text-sm h-10"
                     disabled={isLoggingIn}
                   />
                   <Button
                     type="button"
                     variant="ghost"
                     size="icon"
-                    className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-gray-400 hover:text-gray-600" // Ícone do olho
+                    className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-gray-400 hover:text-gray-600" 
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
                     disabled={isLoggingIn}
@@ -122,7 +122,7 @@ export default function LoginForm() {
         />
         <Button 
           type="submit" 
-          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium shine-button text-sm py-2.5 h-10" // Botão laranja
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium shine-button text-sm py-2.5 h-10" 
           disabled={isLoggingIn}
         >
           {isLoggingIn ? (
