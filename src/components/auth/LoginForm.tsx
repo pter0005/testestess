@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Eye, EyeOff, Loader2 } from 'lucide-react'; // Adicionado Loader2
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation'; 
 
 import { Button } from "@/components/ui/button";
@@ -35,22 +35,13 @@ const CORRECT_PASSWORD = "acessteam123@";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoggingIn, setIsLoggingIn] = useState(false); // Estado de carregamento
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const { toast } = useToast();
   const router = useRouter(); 
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoggingIn(true); // Inicia o carregamento
-    // Simula uma pequena espera, caso a verificação seja rápida demais
-    await new Promise(resolve => setTimeout(resolve, 500));
+    setIsLoggingIn(true);
+    await new Promise(resolve => setTimeout(resolve, 500)); // Simula uma pequena espera
 
     if (values.email === CORRECT_EMAIL && values.password === CORRECT_PASSWORD) {
       toast({
@@ -58,15 +49,13 @@ export default function LoginForm() {
         description: "Redirecionando para o dashboard...",
       });
       router.push('/dashboard'); 
-      // O setIsLoggingIn(false) não é estritamente necessário aqui se o redirecionamento for bem-sucedido,
-      // mas é bom para consistência se o redirecionamento falhar por algum motivo não relacionado ao login.
     } else {
       toast({
         variant: "destructive",
         title: "Erro de Login",
         description: "Credenciais inválidas. Por favor, tente novamente.",
       });
-      setIsLoggingIn(false); // Para o carregamento em caso de falha
+      setIsLoggingIn(false); 
     }
   }
 
@@ -85,7 +74,7 @@ export default function LoginForm() {
                   placeholder="seuemail@exemplo.com" 
                   {...field} 
                   className="bg-input border-border placeholder-muted-foreground focus:border-primary focus:ring-primary"
-                  disabled={isLoggingIn} // Desabilita durante o login
+                  disabled={isLoggingIn}
                 />
               </FormControl>
               <FormMessage />
@@ -105,7 +94,7 @@ export default function LoginForm() {
                     placeholder="********" 
                     {...field} 
                     className="bg-input border-border placeholder-muted-foreground focus:border-primary focus:ring-primary pr-10"
-                    disabled={isLoggingIn} // Desabilita durante o login
+                    disabled={isLoggingIn}
                   />
                   <Button
                     type="button"
@@ -114,7 +103,7 @@ export default function LoginForm() {
                     className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:text-foreground"
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
-                    disabled={isLoggingIn} // Desabilita durante o login
+                    disabled={isLoggingIn}
                   >
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </Button>
@@ -127,7 +116,7 @@ export default function LoginForm() {
         <Button 
           type="submit" 
           className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold shine-button"
-          disabled={isLoggingIn} // Desabilita durante o login
+          disabled={isLoggingIn}
         >
           {isLoggingIn ? (
             <>
