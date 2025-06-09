@@ -125,7 +125,7 @@ function constructDetailedVeo3Prompt(input: GenerateVeo3PromptInput): string {
   if (additionalDetails) {
     const paceKeywords = ["ritmo", "edição", "cuts", "pace", "velocidade de corte", "estilo de edição"];
     for (const keyword of paceKeywords) {
-        const regex = new RegExp(`.*(${keyword}[^.]*.).*`, 'i'); // Try to match sentence
+        const regex = new RegExp(`.*(${keyword}[^.]*.).*`, 'i'); 
         const paceMatch = additionalDetails.match(regex);
         if (paceMatch && paceMatch[0]) {
             promptLines.push(`**Pacing & Editing Style:** (Extracted from additional details) ${paceMatch[0]}. (e.g., "Fast-paced with quick, rhythmic cuts", "Slow, deliberate pacing with long takes and smooth transitions").`);
@@ -157,7 +157,7 @@ function constructDetailedVeo3Prompt(input: GenerateVeo3PromptInput): string {
   if (additionalDetails) {
     const musicKeywords = ["música", "trilha sonora", "soundtrack", "tema musical"];
      for (const keyword of musicKeywords) {
-        const regex = new RegExp(`.*(${keyword}[^.]*.).*`, 'i'); // Try to match sentence
+        const regex = new RegExp(`.*(${keyword}[^.]*.).*`, 'i'); 
         const musicMatch = additionalDetails.match(regex);
         if (musicMatch && musicMatch[0]) {
             promptLines.push(`**Music (Optional):** (Extracted from additional details) ${musicMatch[0]}. Specify genre, mood, and how it should interact with the scene (e.g., "underscore, tense electronic", "prominent, uplifting orchestral score").`);
@@ -181,18 +181,18 @@ function constructDetailedVeo3Prompt(input: GenerateVeo3PromptInput): string {
         if (pacingExtracted) {
             const paceKeywords = ["ritmo", "edição", "cuts", "pace", "velocidade de corte", "estilo de edição"];
             for (const keyword of paceKeywords) {
-                const regex = new RegExp(`.*(${keyword}[^.]*.).*`, 'i'); // Try to match sentence
+                const regex = new RegExp(`.*(${keyword}[^.]*.).*`, 'i');
                 remainingDetails = remainingDetails.replace(regex, '').trim();
             }
         }
         if (musicExtracted) {
             const musicKeywords = ["música", "trilha sonora", "soundtrack", "tema musical"];
             for (const keyword of musicKeywords) {
-                const regex = new RegExp(`.*(${keyword}[^.]*.).*`, 'i'); // Try to match sentence
+                const regex = new RegExp(`.*(${keyword}[^.]*.).*`, 'i');
                 remainingDetails = remainingDetails.replace(regex, '').trim();
             }
         }
-        if (remainingDetails.length > 5) { // Arbitrary small length to avoid empty strings
+        if (remainingDetails.length > 5) { 
              promptLines.push(`**User's Additional Specifications (Other):** Carefully consider these user-provided details for further refinement: ${remainingDetails}.`);
         }
    }
@@ -202,30 +202,38 @@ function constructDetailedVeo3Prompt(input: GenerateVeo3PromptInput): string {
 }
 
 export async function generateVeo3Prompt(input: GenerateVeo3PromptInput): Promise<GenerateVeo3PromptOutput> {
-  console.log("Executando generateVeo3Prompt LOCALMENTE com input:", input);
+  console.log("DIAGNOSTIC: Executing generateVeo3Prompt LOCALMENTE (SIMPLIFIED). Input:", JSON.stringify(input, null, 2));
   try {
-    // Validação Zod usando o schema importado
-    const validatedInput = GenerateVeo3PromptInputSchema.parse(input);
+    // DIAGNOSTIC: Bypass all complex logic and schema validation for now
+    // const validatedInput = GenerateVeo3PromptInputSchema.parse(input);
+    // const constructedPrompt = constructDetailedVeo3Prompt(validatedInput);
     
-    const constructedPrompt = constructDetailedVeo3Prompt(validatedInput);
-    
-    // Simula um pequeno atraso, como se fosse uma chamada de API (opcional, para UX)
-    await new Promise(resolve => setTimeout(resolve, 100)); 
+    await new Promise(resolve => setTimeout(resolve, 50)); // Simulate a small delay
 
-    console.log("Retornando prompt construído LOCALMENTE:", constructedPrompt);
-    return { generatedPrompt: constructedPrompt };
+    const simplifiedPrompt = "DIAGNOSTIC: This is a simplified prompt. Original logic bypassed.";
+    console.log("DIAGNOSTIC: Retornando prompt SIMPLIFICADO LOCALMENTE:", simplifiedPrompt);
+    return { generatedPrompt: simplifiedPrompt };
 
   } catch (error: any) {
-    console.error("Erro na validação ou processamento interno do fluxo LOCAL:", error);
+    console.error("Erro DETALHADO no fluxo LOCAL generateVeo3Prompt (SIMPLIFIED). Raw error object:", error);
+    try {
+      console.error("Stringified error (SIMPLIFIED):", JSON.stringify(error, Object.getOwnPropertyNames(error)));
+    } catch (stringifyError) {
+      console.error("Could not stringify error object (SIMPLIFIED):", stringifyError);
+    }
+    
     if (error instanceof z.ZodError) {
-        // Re-lança o ZodError para que a infraestrutura do Server Action
-        // possa lidar com ele e retornar um erro 400 estruturado.
-        throw error;
+        console.error("Erro de validação Zod no fluxo LOCAL (SIMPLIFIED):", JSON.stringify(error.flatten(), null, 2));
+        // For a ZodError, it's better to throw it so the client can potentially handle it.
+        // However, for general ISE diagnosis, we might want to return a structured error.
+        // For now, let's re-throw as specific errors are often more helpful.
+        throw error; 
     }
-    // Para outros tipos de erro, garante que uma instância de Error seja lançada.
-    if (error instanceof Error) {
-        throw new Error(`Falha no processamento interno dos dados do prompt (local). Detalhe: ${error.message}`);
-    }
-    throw new Error(`Falha no processamento interno dos dados do prompt (local). Erro desconhecido: ${String(error)}`);
+    
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    const errorStack = error instanceof Error ? error.stack : undefined;
+    console.error(`Falha no processamento no fluxo LOCAL (SIMPLIFIED). Mensagem: ${errorMessage}, Stack: ${errorStack}`);
+    // Rethrow a generic error for other cases, to be caught by Server Action error handling
+    throw new Error(`Falha no processamento interno dos dados do prompt (local - simplificado). Detalhe: ${errorMessage}`);
   }
 }
