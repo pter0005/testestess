@@ -5,25 +5,25 @@
 
 @layer base {
   :root {
-    --background: 0 0% 6%; /* #0f0a0a -> Um preto mais profundo */
-    --foreground: 0 0% 98%; /* Branco quase puro */
+    --background: 0 0% 6%; /* #0f0a0a -> Um preto mais profundo para o fundo geral */
+    --foreground: 0 0% 98%; /* Branco quase puro para texto geral */
 
-    --card: 0 0% 9%; /* #171414 -> Um pouco mais claro que o fundo */
+    --card: 0 0% 9%; /* #171414 -> Um pouco mais claro que o fundo, para o card */
     --card-foreground: 0 0% 98%;
 
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 26 95% 53%; /* #f97316 - Laranja vibrante */
+    --primary: 26 95% 53%; /* #f97316 - Laranja vibrante para o botão e logo */
     --primary-foreground: 0 0% 98%; /* Branco para texto no botão primário */
 
     --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 98%;
 
     --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%; /* Cinza claro para texto silenciado/placeholders */
+    --muted-foreground: 0 0% 60%; /* Cinza claro para texto silenciado/placeholders e labels */
 
-    --accent: 26 95% 53%; /* Laranja como cor de destaque */
+    --accent: 26 95% 53%; 
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 72% 51%; 
@@ -32,8 +32,8 @@
     --border: 0 0% 20%; /* Cinza escuro para bordas gerais */
     
     /* Inputs CLAROS com texto ESCURO, como na imagem de referência do login */
-    --input: 0 0% 93%; /* bg-gray-100 ou similar - CLARO */
-    --input-foreground: 20 14.3% 4.1%; /* text-gray-900 ou similar - ESCURO */
+    --input: 0 0% 93%; /* Ex: bg-gray-100 (#ECECEC) ou um branco levemente acinzentado */
+    --input-foreground: 0 0% 13%; /* Ex: text-gray-900 (#1f2937) ou um preto/cinza bem escuro */
     
     --ring: 26 95% 53%; /* Laranja para anel de foco */
     

@@ -41,7 +41,7 @@ export default function LoginForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      email: "", // O placeholder cuidará da exibição inicial
       password: "",
     },
   });
@@ -68,7 +68,7 @@ export default function LoginForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full"> {/* Espaçamento entre campos */}
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
         <FormField
           control={form.control}
           name="email"
@@ -78,9 +78,9 @@ export default function LoginForm() {
               <FormControl>
                 <Input 
                   type="email"
-                  placeholder="" 
+                  placeholder="teamveo3aluno@acesso.com" 
                   {...field} 
-                  className="bg-input text-input-foreground border-gray-300 placeholder-gray-400 focus:bg-white focus:border-primary text-sm h-10" 
+                  className="bg-input text-input-foreground border-gray-300 placeholder-gray-500 focus:bg-white focus:border-primary text-sm h-10" 
                   disabled={isLoggingIn}
                 />
               </FormControl>
@@ -98,9 +98,9 @@ export default function LoginForm() {
                 <div className="relative">
                   <Input 
                     type={showPassword ? "text" : "password"} 
-                    placeholder="" 
+                    placeholder="••••••••" 
                     {...field} 
-                    className="bg-input text-input-foreground border-gray-300 placeholder-gray-400 focus:bg-white focus:border-primary pr-10 text-sm h-10"
+                    className="bg-input text-input-foreground border-gray-300 placeholder-gray-500 focus:bg-white focus:border-primary pr-10 text-sm h-10"
                     disabled={isLoggingIn}
                   />
                   <Button
