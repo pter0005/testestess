@@ -1,5 +1,5 @@
 
-import { z, type ZodTypeAny } from 'zod';
+import { z, type ZodTypeAny, ZodFirstPartyTypeKind } from 'zod';
 
 const creativityLevelOptions = ['Baixa', 'Média', 'Alta'] as const;
 const spokenLanguageOptions = ['Tem fala', 'Sem fala', 'Apenas legenda'] as const;
@@ -80,20 +80,34 @@ export const GenerateVeo3PromptInputSchema = z.object({
 export type GenerateVeo3PromptInput = z.infer<typeof GenerateVeo3PromptInputSchema>;
 
 // Helper function to extract descriptions from the schema
-const extractDescriptions = (schema: z.ZodObject<any, any, any>): Record<string, string | undefined> => {
+const extractDescriptions = (schema: ZodTypeAny): Record<string, string | undefined> => {
   const descriptions: Record<string, string | undefined> = {};
-  for (const key in schema.shape) {
-    const fieldSchema = schema.shape[key] as ZodTypeAny; // ZodTypeAny is a base type for Zod schemas
-    if (fieldSchema && fieldSchema._def && typeof fieldSchema._def.description === 'string') {
-      descriptions[key] = fieldSchema._def.description;
-    } else {
-      // Fallback or log if description is not found, though .describe() should ensure it's there
-      // console.warn(`Description not found for schema field: ${key}`);
-      descriptions[key] = undefined;
+
+  let baseSchema = schema;
+  // Unwrap ZodEffects to get to the core ZodObject
+  while (baseSchema._def && baseSchema._def.typeName === ZodFirstPartyTypeKind.ZodEffects) {
+    baseSchema = baseSchema._def.schema;
+  }
+
+  if (baseSchema._def && baseSchema._def.typeName === ZodFirstPartyTypeKind.ZodObject) {
+    const shape = (baseSchema as z.ZodObject<any, any, any>).shape;
+    for (const key in shape) {
+      const fieldSchema = shape[key];
+      if (fieldSchema && fieldSchema._def && typeof fieldSchema._def.description === 'string') {
+        descriptions[key] = fieldSchema._def.description;
+      } else {
+        // Fallback or log if description is not found
+        descriptions[key] = undefined;
+      }
     }
+  } else {
+    // This case might be hit if the schema isn't a ZodObject or ZodEffects wrapping one.
+    console.warn("extractDescriptions: The provided schema, after unwrapping effects, is not a ZodObject or does not have a 'shape' property as expected.");
   }
   return descriptions;
 };
 
+
 export const veo3PromptFieldDescriptions: Record<keyof GenerateVeo3PromptInput, string | undefined> =
   extractDescriptions(GenerateVeo3PromptInputSchema) as Record<keyof GenerateVeo3PromptInput, string | undefined>;
+
