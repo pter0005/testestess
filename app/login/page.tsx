@@ -12,17 +12,17 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-4 overflow-hidden relative">
       <InteractiveBackground />
       
-      {/* Container para o conteúdo do login, centralizado pelo flex da div pai */}
-      <div className="relative z-10 w-full max-w-sm space-y-6"> 
-        <Logo className="text-4xl" /> {/* Reduzido um pouco o tamanho do logo */}
+      {/* Container para o conteúdo do login, centralizado e com largura máxima */}
+      <div className="relative z-10 w-full max-w-sm space-y-4"> {/* Reduzido space-y-6 para space-y-4 */}
+        <Logo className="text-3xl" /> {/* Reduzido de text-4xl para text-3xl */}
         <Card className="w-full bg-card/80 backdrop-blur-md shadow-2xl rounded-xl border-border/30">
-          <CardHeader className="p-6"> {/* Garantindo padding no header */}
-            <h1 className="text-2xl font-bold text-center text-primary">Acesse sua Conta</h1>
-            <p className="text-sm text-muted-foreground text-center mt-1"> {/* Adicionado mt-1 para leve espaçamento */}
+          <CardHeader className="p-4"> {/* Reduzido padding de p-6 para p-4 */}
+            <h1 className="text-xl font-bold text-center text-primary">Acesse sua Conta</h1> {/* Reduzido de text-2xl para text-xl */}
+            <p className="text-sm text-muted-foreground text-center mt-1">
               Bem-vindo de volta! Faça login para continuar.
             </p>
           </CardHeader>
-          <CardContent className="p-6"> {/* Garantindo padding no content */}
+          <CardContent className="p-4"> {/* Reduzido padding de p-6 para p-4 */}
             <LoginForm />
           </CardContent>
         </Card>
