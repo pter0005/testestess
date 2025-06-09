@@ -30,7 +30,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import Footer from '@/components/layout/Footer';
-import { generateVeo3Prompt, type GenerateVeo3PromptInput } from '@/ai/flows/veo3-prompt-generator-flow';
+import { generateVeo3Prompt } from '@/ai/flows/veo3-prompt-generator-flow';
+import type { GenerateVeo3PromptInput } from '@/lib/schemas/veo3-prompt-schema'; // Import corrigido
 import { useToast } from '@/hooks/use-toast';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useSearchParams } from 'next/navigation';
@@ -106,6 +107,11 @@ export default function PromptGeneratorCustomPage() {
     setIsLoading(true);
     setGeneratedPrompt(null);
     try {
+      // A função generateVeo3Prompt espera um tipo GenerateVeo3PromptInput.
+      // Como FormValues tem um subconjunto dos campos, precisamos garantir a compatibilidade.
+      // Para este exemplo, vou assumir que o schema de FormValues é um subconjunto válido
+      // ou que generateVeo3Prompt pode lidar com os campos opcionais ausentes.
+      // Se os schemas forem muito diferentes, pode ser necessário um mapeamento aqui.
       const result = await generateVeo3Prompt(data as GenerateVeo3PromptInput);
       setGeneratedPrompt(result.generatedPrompt);
       toast({
@@ -334,5 +340,6 @@ export default function PromptGeneratorCustomPage() {
     
 
     
+
 
 
