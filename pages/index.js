@@ -1,1 +1,7 @@
-export default function Home() { return <h1>Site online</h1> }
+export default function Home() {
+  return (
+    <main style={{ textAlign: 'center', marginTop: '100px' }}>
+      <h1>✅ Deploy funcionando no Netlify</h1>
+    </main>
+  );
+}
