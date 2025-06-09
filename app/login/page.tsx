@@ -12,23 +12,26 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-4 overflow-hidden relative">
       <InteractiveBackground />
       
-      {/* Container para o conteúdo do login, centralizado e com largura máxima */}
-      <div className="relative z-10 w-full max-w-sm space-y-4"> {/* Reduzido space-y-6 para space-y-4 */}
-        <Logo className="text-3xl" /> {/* Reduzido de text-4xl para text-3xl */}
+      {/* Container que controla a largura máxima e centraliza o conteúdo do login */}
+      <div className="relative z-10 w-full max-w-sm space-y-4 flex flex-col items-center">
+        <Logo className="text-3xl mb-2" /> {/* Logo um pouco menor e com margem inferior */}
+        
         <Card className="w-full bg-card/80 backdrop-blur-md shadow-2xl rounded-xl border-border/30">
-          <CardHeader className="p-4"> {/* Reduzido padding de p-6 para p-4 */}
-            <h1 className="text-xl font-bold text-center text-primary">Acesse sua Conta</h1> {/* Reduzido de text-2xl para text-xl */}
-            <p className="text-sm text-muted-foreground text-center mt-1">
+          <CardHeader className="p-4 text-center"> {/* Padding reduzido e texto centralizado */}
+            <h1 className="text-xl font-bold text-primary"> {/* Tamanho do título reduzido */}
+              Acesse sua Conta
+            </h1>
+            <p className="text-xs text-muted-foreground mt-1"> {/* Descrição menor */}
               Bem-vindo de volta! Faça login para continuar.
             </p>
           </CardHeader>
-          <CardContent className="p-4"> {/* Reduzido padding de p-6 para p-4 */}
+          <CardContent className="p-4"> {/* Padding reduzido */}
             <LoginForm />
           </CardContent>
         </Card>
       </div>
 
-      <Footer className="py-8 absolute bottom-0 w-full z-10" />
+      <Footer className="py-6 absolute bottom-0 w-full z-10 text-xs" /> {/* Footer um pouco menor */}
     </div>
   );
 }
