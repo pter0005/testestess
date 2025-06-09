@@ -68,19 +68,19 @@ export default function LoginForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6"> {/* Espaçamento interno do form reduzido de 8 para 6 */}
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-foreground">Email</FormLabel>
+              <FormLabel className="text-foreground text-sm">Email</FormLabel> {/* Tamanho da label reduzido */}
               <FormControl>
                 <Input 
                   type="email"
                   placeholder="seuemail@exemplo.com" 
                   {...field} 
-                  className="bg-input border-border placeholder-muted-foreground focus:border-primary focus:ring-primary"
+                  className="bg-input border-border placeholder-muted-foreground focus:border-primary focus:ring-primary text-sm" // Tamanho do texto do input reduzido
                   disabled={isLoggingIn}
                 />
               </FormControl>
@@ -93,14 +93,14 @@ export default function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-foreground">Senha</FormLabel>
+              <FormLabel className="text-foreground text-sm">Senha</FormLabel> {/* Tamanho da label reduzido */}
               <FormControl>
                 <div className="relative">
                   <Input 
                     type={showPassword ? "text" : "password"} 
                     placeholder="********" 
                     {...field} 
-                    className="bg-input border-border placeholder-muted-foreground focus:border-primary focus:ring-primary pr-10"
+                    className="bg-input border-border placeholder-muted-foreground focus:border-primary focus:ring-primary pr-10 text-sm" // Tamanho do texto do input reduzido
                     disabled={isLoggingIn}
                   />
                   <Button
@@ -122,7 +122,7 @@ export default function LoginForm() {
         />
         <Button 
           type="submit" 
-          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold shine-button"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shine-button text-sm py-2" // Texto do botão e padding ajustados
           disabled={isLoggingIn}
         >
           {isLoggingIn ? (

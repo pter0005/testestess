@@ -4,7 +4,7 @@
 import Footer from '@/components/layout/Footer';
 import LoginForm from '@/components/auth/LoginForm';
 import InteractiveBackground from '@/components/common/InteractiveBackground';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 // Definindo um componente simples para o Logo aqui mesmo para garantir que ele exista
 const Logo = ({ className }: { className?: string }) => (
