@@ -6,10 +6,10 @@ import LoginForm from '@/components/auth/LoginForm';
 import InteractiveBackground from '@/components/common/InteractiveBackground';
 import { Card, CardContent } from "@/components/ui/card";
 
-// Logo estilizado como texto simples para corresponder à imagem de referência
+// Logo estilizado com "TEAM" em branco e "VEO3" em laranja (cor primária)
 const SimpleLogo = ({ className }: { className?: string }) => (
-  <div className={`font-semibold tracking-wider text-center text-2xl text-foreground ${className}`}>
-    TEAM-VEO3
+  <div className={`font-semibold tracking-wider text-center text-4xl text-foreground ${className}`}>
+    TEAM <span className="text-primary">VEO3</span>
   </div>
 );
 
@@ -19,18 +19,18 @@ export default function LoginPage() {
       <InteractiveBackground />
       
       {/* Container para centralizar o conteúdo do login e definir largura máxima */}
-      <div className="relative z-10 flex flex-col items-center w-full max-w-xs space-y-6"> {/* max-w-xs para ser bem compacto, space-y para espaçamento vertical */}
+      <div className="relative z-10 flex flex-col items-center w-full max-w-xs space-y-6">
         
-        <SimpleLogo className="mb-1" /> {/* Margem inferior pequena para o logo */}
+        <SimpleLogo className="mb-4" /> {/* Aumentada margem inferior para o logo maior */}
         
-        <Card className="w-full bg-card shadow-xl rounded-lg border-border/30">
-          {/* Não há CardHeader visível na imagem de referência, o conteúdo é diretamente o formulário */}
-          <CardContent className="p-6"> {/* Padding para o conteúdo do formulário */}
+        <Card className="w-full bg-card/70 backdrop-blur-md shadow-xl rounded-lg border-border/30">
+          {/* O CardContent já tem padding, não precisamos de CardHeader aqui para o design da imagem */}
+          <CardContent className="p-6"> 
             <LoginForm />
           </CardContent>
         </Card>
         
-        <Footer className="py-0 text-xs text-muted-foreground/80 !mt-6" /> {/* Footer compacto, !mt-6 para forçar a margem superior */}
+        <Footer className="py-0 text-xs text-muted-foreground/80 !mt-6" />
       </div>
     </div>
   );
