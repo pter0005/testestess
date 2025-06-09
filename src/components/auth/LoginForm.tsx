@@ -24,8 +24,8 @@ const formSchema = z.object({
   email: z.string().email({
     message: "Por favor, insira um email válido.",
   }),
-  password: z.string().min(6, {
-    message: "A senha deve ter pelo menos 6 caracteres.",
+  password: z.string().min(1, { // Mínimo de 1 para teste, pode ser ajustado
+    message: "A senha é obrigatória.",
   }),
 });
 
@@ -68,19 +68,19 @@ export default function LoginForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4"> {/* Reduced space-y for compactness */}
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4"> {/* Espaçamento entre campos */}
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-muted-foreground text-xs font-normal">Email</FormLabel> {/* Styled as per image */}
+              <FormLabel className="text-muted-foreground text-xs font-normal">Email</FormLabel>
               <FormControl>
                 <Input 
                   type="email"
-                  placeholder="" /* No placeholder in target image */
+                  placeholder="" // Sem placeholder conforme imagem
                   {...field} 
-                  className="bg-gray-100 text-gray-900 border-gray-300 placeholder-gray-400 focus:bg-white focus:border-primary text-sm h-10" /* Light input, dark text, specific height */
+                  className="bg-gray-100 text-gray-900 border-gray-300 placeholder-gray-400 focus:bg-white focus:border-primary text-sm h-10" // Estilo de input claro
                   disabled={isLoggingIn}
                 />
               </FormControl>
@@ -93,21 +93,21 @@ export default function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-muted-foreground text-xs font-normal">Senha</FormLabel> {/* Styled as per image */}
+              <FormLabel className="text-muted-foreground text-xs font-normal">Senha</FormLabel>
               <FormControl>
                 <div className="relative">
                   <Input 
                     type={showPassword ? "text" : "password"} 
-                    placeholder="" /* No placeholder in target image */
+                    placeholder="" // Sem placeholder
                     {...field} 
-                    className="bg-gray-100 text-gray-900 border-gray-300 placeholder-gray-400 focus:bg-white focus:border-primary pr-10 text-sm h-10" /* Light input, dark text */
+                    className="bg-gray-100 text-gray-900 border-gray-300 placeholder-gray-400 focus:bg-white focus:border-primary pr-10 text-sm h-10" // Estilo de input claro
                     disabled={isLoggingIn}
                   />
                   <Button
                     type="button"
                     variant="ghost"
                     size="icon"
-                    className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-gray-400 hover:text-gray-600" /* Adjusted icon color */
+                    className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-gray-400 hover:text-gray-600" // Ícone do olho
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
                     disabled={isLoggingIn}
@@ -122,7 +122,7 @@ export default function LoginForm() {
         />
         <Button 
           type="submit" 
-          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium shine-button text-sm py-2.5 h-10" /* Adjusted padding/height for button */
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium shine-button text-sm py-2.5 h-10" // Botão laranja
           disabled={isLoggingIn}
         >
           {isLoggingIn ? (

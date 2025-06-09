@@ -5,41 +5,68 @@
 
 @layer base {
   :root {
-    --background: 0 0% 6%; /* #0f0f0f */
-    --foreground: 0 0% 98%;
+    --background: 20 14.3% 4.1%; /* #0f0a0a - Um preto levemente quente/marrom escuro */
+    --foreground: 0 0% 98%; /* Branco quase puro */
 
-    --card: 0 0% 11%; /* #1c1c1c */
+    --card: 20 10% 9%; /* #171414 - Um pouco mais claro que o fundo */
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 11%;
+    --popover: 20 10% 9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 26 95% 53%; /* #f97316 */
-    --primary-foreground: 0 0% 98%; /* White text on orange */
+    --primary: 26 95% 53%; /* #f97316 - Laranja vibrante */
+    --primary-foreground: 0 0% 98%; /* Branco para texto no botão primário */
 
     --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 98%;
 
     --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%; /* Light gray for placeholders */
+    --muted-foreground: 0 0% 60%; /* Cinza claro para texto silenciado/placeholders */
 
-    --accent: 26 95% 53%;
+    --accent: 26 95% 53%; /* Laranja como cor de destaque */
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 72% 51%; /* Adjusted for dark theme visibility */
+    --destructive: 0 72% 51%; 
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 26 95% 53%; /* Orange ring for focus */
+    --border: 0 0% 20%; /* Cinza escuro para bordas gerais */
+    --input: 0 0% 93%; /* Cinza bem claro para fundo de input (bg-gray-100) */
+    --input-foreground: 20 14.3% 4.1%; /* Texto escuro para inputs (text-gray-900) */
+    --ring: 26 95% 53%; /* Laranja para anel de foco */
     
-    --radius: 0.75rem; /* For rounded-xl on form, base radius can be larger */
+    --radius: 0.5rem; /* Raio de borda padrão reduzido para um visual mais sharp */
 
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    /* Mantém as mesmas variáveis, pois o tema base já é escuro.
+       Se você tivesse um tema claro e quisesse alternar,
+       você definiria variáveis diferentes aqui. */
+    --background: 20 14.3% 4.1%;
+    --foreground: 0 0% 98%;
+    --card: 20 10% 9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 20 10% 9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 26 95% 53%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 26 95% 53%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 93%; /* bg-gray-100 */
+    --input-foreground: 20 14.3% 4.1%; /* text-gray-900 */
+    --ring: 26 95% 53%;
   }
 }
 
@@ -49,7 +76,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif; /* Garantindo a fonte Inter */
+    font-family: 'Inter', sans-serif;
   }
 }
 
@@ -63,19 +90,19 @@
   content: "";
   position: absolute;
   top: 0;
-  left: -150%; /* Start further left */
-  width: 100%; /* Wider shine */
+  left: -150%; 
+  width: 100%; 
   height: 100%;
   background: linear-gradient(
     90deg,
     transparent,
-    hsla(0, 0%, 100%, 0.2), /* Softer shine */
+    hsla(0, 0%, 100%, 0.2), 
     transparent
   );
   transition: left 0.75s ease-in-out;
-  transform: skewX(-25deg); /* Angled shine */
+  transform: skewX(-25deg); 
 }
 
 .shine-button:hover::after {
-  left: 150%; /* Move across and off-screen */
+  left: 150%;
 }
