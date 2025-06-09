@@ -12,7 +12,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'PTER-VEO3 Access',
-  description: 'Login page for PTER-VEO3 Platform',
+  description: 'Plataforma de aprendizado VEO3',
   viewport: 'width=device-width, initial-scale=1',
 };
 
