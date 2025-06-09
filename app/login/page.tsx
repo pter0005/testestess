@@ -13,8 +13,9 @@ export default function LoginPage() {
       <InteractiveBackground />
       {/* Container para centralizar o conteúdo do login */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full px-4">
-        <div className="w-full max-w-md space-y-8"> {/* Define a largura máxima e espaçamento */}
-          <Logo className="text-5xl" /> {/* Removido mb-8 para usar o space-y-8 do pai */}
+        {/* Ajustado para max-w-sm e adicionado mx-auto */}
+        <div className="w-full max-w-sm mx-auto space-y-8"> 
+          <Logo className="text-5xl" />
           <Card className="w-full bg-card/80 backdrop-blur-md shadow-2xl rounded-xl border-border/30">
             <CardHeader>
               <h1 className="text-2xl font-bold text-center text-primary">Acesse sua Conta</h1>
