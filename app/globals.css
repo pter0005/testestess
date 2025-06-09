@@ -5,13 +5,13 @@
 
 @layer base {
   :root {
-    --background: 20 14.3% 4.1%; /* #0f0a0a - Um preto levemente quente/marrom escuro */
+    --background: 0 0% 6%; /* #0f0a0a -> Um preto mais profundo */
     --foreground: 0 0% 98%; /* Branco quase puro */
 
-    --card: 20 10% 9%; /* #171414 - Um pouco mais claro que o fundo */
+    --card: 0 0% 9%; /* #171414 -> Um pouco mais claro que o fundo */
     --card-foreground: 0 0% 98%;
 
-    --popover: 20 10% 9%;
+    --popover: 0 0% 9%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 26 95% 53%; /* #f97316 - Laranja vibrante */
@@ -31,9 +31,9 @@
 
     --border: 0 0% 20%; /* Cinza escuro para bordas gerais */
     
-    /* Variáveis para inputs CLAROS em fundo ESCURO */
-    --input: 0 0% 93%; /* bg-gray-100 ou similar - DEVE SER CLARO */
-    --input-foreground: 20 14.3% 4.1%; /* text-gray-900 ou similar - DEVE SER ESCURO */
+    /* Inputs CLAROS com texto ESCURO, como na imagem de referência do login */
+    --input: 0 0% 93%; /* bg-gray-100 ou similar - CLARO */
+    --input-foreground: 20 14.3% 4.1%; /* text-gray-900 ou similar - ESCURO */
     
     --ring: 26 95% 53%; /* Laranja para anel de foco */
     
@@ -45,47 +45,20 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
 
-     /* Variáveis específicas para Sidebar (exemplo, ajuste conforme necessário) */
-    --sidebar-background: 20 10% 12%; /* Um pouco mais escuro/diferente do card normal */
+    --sidebar-background: 20 10% 12%; 
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 26 95% 53%; /* Laranja */
+    --sidebar-primary: 26 95% 53%; 
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 26 95% 45%; /* Laranja um pouco mais escuro para hover/active */
+    --sidebar-accent: 26 95% 45%; 
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 0 0% 25%;
     --sidebar-ring: 26 95% 53%;
   }
 
   .dark {
-    --background: 20 14.3% 4.1%;
-    --foreground: 0 0% 98%;
-    --card: 20 10% 9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 20 10% 9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 26 95% 53%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%;
-    --accent: 26 95% 53%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 20%;
-    --input: 0 0% 93%; 
-    --input-foreground: 20 14.3% 4.1%; 
-    --ring: 26 95% 53%;
-
-    --sidebar-background: 20 10% 12%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 26 95% 53%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 26 95% 45%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 0 0% 25%;
-    --sidebar-ring: 26 95% 53%;
+    /* As variáveis já estão definidas para um tema escuro em :root.
+       Se precisar de um modo claro específico, defina-o aqui.
+       Para este projeto, :root já serve como o tema escuro principal. */
   }
 }
 
