@@ -202,38 +202,35 @@ function constructDetailedVeo3Prompt(input: GenerateVeo3PromptInput): string {
 }
 
 export async function generateVeo3Prompt(input: GenerateVeo3PromptInput): Promise<GenerateVeo3PromptOutput> {
-  console.log("DIAGNOSTIC: Executing generateVeo3Prompt LOCALMENTE (SIMPLIFIED). Input:", JSON.stringify(input, null, 2));
+  console.log("Executing generateVeo3Prompt with full logic. Input:", JSON.stringify(input, null, 2));
   try {
-    // DIAGNOSTIC: Bypass all complex logic and schema validation for now
-    // const validatedInput = GenerateVeo3PromptInputSchema.parse(input);
-    // const constructedPrompt = constructDetailedVeo3Prompt(validatedInput);
+    const validatedInput = GenerateVeo3PromptInputSchema.parse(input);
+    const constructedPrompt = constructDetailedVeo3Prompt(validatedInput);
     
-    await new Promise(resolve => setTimeout(resolve, 50)); // Simulate a small delay
-
-    const simplifiedPrompt = "DIAGNOSTIC: This is a simplified prompt. Original logic bypassed.";
-    console.log("DIAGNOSTIC: Retornando prompt SIMPLIFICADO LOCALMENTE:", simplifiedPrompt);
-    return { generatedPrompt: simplifiedPrompt };
+    console.log("Constructed Prompt:", constructedPrompt);
+    return { generatedPrompt: constructedPrompt };
 
   } catch (error: any) {
-    console.error("Erro DETALHADO no fluxo LOCAL generateVeo3Prompt (SIMPLIFIED). Raw error object:", error);
+    console.error("Error in generateVeo3Prompt flow. Raw error object:", error);
     try {
-      console.error("Stringified error (SIMPLIFIED):", JSON.stringify(error, Object.getOwnPropertyNames(error)));
+      console.error("Stringified error:", JSON.stringify(error, Object.getOwnPropertyNames(error)));
     } catch (stringifyError) {
-      console.error("Could not stringify error object (SIMPLIFIED):", stringifyError);
+      console.error("Could not stringify error object:", stringifyError);
     }
     
     if (error instanceof z.ZodError) {
-        console.error("Erro de validação Zod no fluxo LOCAL (SIMPLIFIED):", JSON.stringify(error.flatten(), null, 2));
-        // For a ZodError, it's better to throw it so the client can potentially handle it.
-        // However, for general ISE diagnosis, we might want to return a structured error.
-        // For now, let's re-throw as specific errors are often more helpful.
-        throw error; 
+        console.error("Zod validation error in flow:", JSON.stringify(error.flatten(), null, 2));
+        // Construct a user-friendly error message from Zod issues
+        const fieldErrors = error.flatten().fieldErrors;
+        const messages = Object.entries(fieldErrors).map(([field, errors]) => `${field}: ${errors?.join(', ')}`).join('; ');
+        throw new Error(`Erro de validação nos dados do prompt: ${messages}`);
     }
     
     const errorMessage = error instanceof Error ? error.message : String(error);
     const errorStack = error instanceof Error ? error.stack : undefined;
-    console.error(`Falha no processamento no fluxo LOCAL (SIMPLIFIED). Mensagem: ${errorMessage}, Stack: ${errorStack}`);
-    // Rethrow a generic error for other cases, to be caught by Server Action error handling
-    throw new Error(`Falha no processamento interno dos dados do prompt (local - simplificado). Detalhe: ${errorMessage}`);
+    console.error(`Failed to process prompt data in flow. Message: ${errorMessage}, Stack: ${errorStack}`);
+    throw new Error(`Falha no processamento interno dos dados do prompt. Detalhe: ${errorMessage}`);
   }
 }
+
+    
