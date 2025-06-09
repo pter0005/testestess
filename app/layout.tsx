@@ -11,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'PTER-VEO3 Access', // Atualizado conforme o nome do app no PRD
-  description: 'Login page for PTER-VEO3 Academy', // Atualizado conforme o PRD
+  title: 'PTER-VEO3 Access', 
+  description: 'Login page for PTER-VEO3 Academy', 
 };
 
 export default function RootLayout({
