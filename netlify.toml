@@ -1,0 +1,10 @@
+toml
+[build]
+  command = "npm run build"
+  publish = ".netlify/output"
+
+[functions]
+  directory = "netlify/functions"
+
+[[plugins]]
+  package = "@netlify/next"
