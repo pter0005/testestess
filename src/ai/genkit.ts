@@ -4,7 +4,6 @@
 import {genkit} from 'genkit';
 import { googleAI } from '@genkit-ai/googleai';
 
-// import wasmInit from 'vsda/rust/web/vsda_bg.wasm' // Importação problemática REMOVIDA/COMENTADA
  
 const googleApiKey = process.env.GOOGLE_API_KEY;
 const pluginsToUse = [];

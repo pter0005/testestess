@@ -39,6 +39,13 @@ export default function LoginForm() {
   const { toast } = useToast();
   const router = useRouter(); 
 
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoggingIn(true);
     await new Promise(resolve => setTimeout(resolve, 500)); // Simula uma pequena espera

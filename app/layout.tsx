@@ -13,7 +13,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'PTER-VEO3 Access',
   description: 'Login page for PTER-VEO3 Platform',
-  viewport: 'width=device-width, initial-scale=1', 
+  viewport: 'width=device-width, initial-scale=1',
 };
 
 export default function RootLayout({
@@ -23,8 +23,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${inter.variable} dark`}>
-      <head>
-      </head>
       <body className="font-body antialiased bg-background text-foreground">
         {children}
         <Toaster />
