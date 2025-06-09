@@ -29,7 +29,6 @@ const formSchema = z.object({
   }),
 });
 
-// Credenciais corretas
 const CORRECT_EMAIL = "teamveo3aluno@acesso.com";
 const CORRECT_PASSWORD = "acessteam123@";
 
@@ -46,9 +45,10 @@ export default function LoginForm() {
       password: "",
     },
   });
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoggingIn(true);
-    await new Promise(resolve => setTimeout(resolve, 500)); // Simula uma pequena espera
+    await new Promise(resolve => setTimeout(resolve, 500)); 
 
     if (values.email === CORRECT_EMAIL && values.password === CORRECT_PASSWORD) {
       toast({
@@ -68,23 +68,23 @@ export default function LoginForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6"> {/* Espaçamento interno do form reduzido de 8 para 6 */}
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4"> {/* Reduced space-y for compactness */}
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-foreground text-sm">Email</FormLabel> {/* Tamanho da label reduzido */}
+              <FormLabel className="text-muted-foreground text-xs font-normal">Email</FormLabel> {/* Styled as per image */}
               <FormControl>
                 <Input 
                   type="email"
-                  placeholder="seuemail@exemplo.com" 
+                  placeholder="" /* No placeholder in target image */
                   {...field} 
-                  className="bg-input border-border placeholder-muted-foreground focus:border-primary focus:ring-primary text-sm" // Tamanho do texto do input reduzido
+                  className="bg-gray-100 text-gray-900 border-gray-300 placeholder-gray-400 focus:bg-white focus:border-primary text-sm h-10" /* Light input, dark text, specific height */
                   disabled={isLoggingIn}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-xs" />
             </FormItem>
           )}
         />
@@ -93,21 +93,21 @@ export default function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-foreground text-sm">Senha</FormLabel> {/* Tamanho da label reduzido */}
+              <FormLabel className="text-muted-foreground text-xs font-normal">Senha</FormLabel> {/* Styled as per image */}
               <FormControl>
                 <div className="relative">
                   <Input 
                     type={showPassword ? "text" : "password"} 
-                    placeholder="********" 
+                    placeholder="" /* No placeholder in target image */
                     {...field} 
-                    className="bg-input border-border placeholder-muted-foreground focus:border-primary focus:ring-primary pr-10 text-sm" // Tamanho do texto do input reduzido
+                    className="bg-gray-100 text-gray-900 border-gray-300 placeholder-gray-400 focus:bg-white focus:border-primary pr-10 text-sm h-10" /* Light input, dark text */
                     disabled={isLoggingIn}
                   />
                   <Button
                     type="button"
                     variant="ghost"
                     size="icon"
-                    className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:text-foreground"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-gray-400 hover:text-gray-600" /* Adjusted icon color */
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
                     disabled={isLoggingIn}
@@ -116,13 +116,13 @@ export default function LoginForm() {
                   </Button>
                 </div>
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-xs" />
             </FormItem>
           )}
         />
         <Button 
           type="submit" 
-          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shine-button text-sm py-2" // Texto do botão e padding ajustados
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium shine-button text-sm py-2.5 h-10" /* Adjusted padding/height for button */
           disabled={isLoggingIn}
         >
           {isLoggingIn ? (
