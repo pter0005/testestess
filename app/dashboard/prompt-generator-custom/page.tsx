@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -101,7 +100,7 @@ export default function PromptGeneratorCustomPage() {
         form.reset(initialValues);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams, form.reset]); 
+  }, [searchParams, form]); 
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setIsLoading(true);
