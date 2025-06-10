@@ -141,200 +141,202 @@ export default function PromptGeneratorCustomPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/dashboard" className="flex items-center space-x-2">
-            <Image
-              src="https://i.imgur.com/ny9FJ1z.png"
-              alt="VEO3 Academy Logo"
-              width={50}
-              height={18}
-              className="object-contain"
-               style={{
-                maskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)',
-              }}
-              data-ai-hint="futuristic logo"
-            />
-          </Link>
-          <Link href="/dashboard/prompt-generator">
-            <Button variant="outline" className="shine-button">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Voltar para Etapa Inicial
-            </Button>
-          </Link>
-        </div>
-      </header>
-
-      <main className="flex-grow container mx-auto py-8 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
-        <ScrollArea className="w-full max-w-3xl h-[calc(100vh-10rem)]">
-          <div className="w-full">
-            <div className="text-center mb-10">
-              <h1 className="text-3xl sm:text-4xl font-bold text-primary flex items-center justify-center">
-                <Rocket className="mr-3 h-8 w-8" />
-                Personalize e Gere seu Prompt com IA
-              </h1>
-              <p className="text-muted-foreground mt-2 text-lg">Ajuste os detalhes e deixe nossa IA criar o prompt perfeito para Veo 3!</p>
-            </div>
-
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
-                <CardHeader>
-                  <CardTitle className="text-xl">1. Qual o tipo de vídeo? <span className="text-primary">*</span></CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <RadioGroup
-                    value={form.watch('videoType')} 
-                    onValueChange={(value) => form.setValue('videoType', value, { shouldValidate: true })}
-                    className="grid grid-cols-2 sm:grid-cols-3 gap-4"
-                  >
-                    {videoTypeOptions.map((option) => (
-                      <Label
-                        key={option.id}
-                        htmlFor={`videoType-custom-${option.id}`}
-                        className="flex items-center space-x-3 p-3 border border-input rounded-md hover:bg-accent hover:text-accent-foreground cursor-pointer transition-colors bg-background/50"
-                      >
-                        <RadioGroupItem value={option.id} id={`videoType-custom-${option.id}`} />
-                        <option.icon className="h-5 w-5 text-primary" />
-                        <span>{option.label}</span>
-                      </Label>
-                    ))}
-                  </RadioGroup>
-                  {form.formState.errors.videoType && (
-                    <p className="text-sm font-medium text-destructive mt-2">{form.formState.errors.videoType.message}</p>
-                  )}
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
-                <CardHeader>
-                  <CardTitle className="text-xl">2. Onde se passa a cena? <span className="text-primary">*</span></CardTitle>
-                  <CardDescription>Descreva o lugar, horário, iluminação, atmosfera predominante.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Textarea
-                    {...form.register('sceneDescription')}
-                    placeholder="Ex: Uma floresta mágica ao entardecer, com raios de sol filtrando pelas árvores e uma névoa misteriosa no chão."
-                    className="min-h-[100px] bg-input placeholder-muted-foreground"
-                  />
-                  {form.formState.errors.sceneDescription && (
-                    <p className="text-sm font-medium text-destructive mt-2">{form.formState.errors.sceneDescription.message}</p>
-                  )}
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
-                <CardHeader>
-                  <CardTitle className="text-xl">3. Personagens/Objetos Principais</CardTitle>
-                  <CardDescription>Quem ou o quê é o foco principal do vídeo?</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Input
-                    {...form.register('mainSubjects')}
-                    placeholder="Ex: Um jovem aventureiro com roupas de explorador, um dragão majestoso, um artefato antigo brilhante."
-                    className="bg-input placeholder-muted-foreground"
-                  />
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
-                <CardHeader>
-                  <CardTitle className="text-xl">4. Ações/Eventos Principais</CardTitle>
-                  <CardDescription>O que está acontecendo no vídeo?</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Input
-                    {...form.register('mainActions')}
-                    placeholder="Ex: O aventureiro descobre o artefato, o dragão sobrevoa as montanhas, uma perseguição em alta velocidade."
-                    className="bg-input placeholder-muted-foreground"
-                  />
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
-                <CardHeader>
-                  <CardTitle className="text-xl">5. Estilo Visual</CardTitle>
-                  <CardDescription>Qual a estética desejada? (cinemático, aquarela, neon, etc.)</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Input
-                    {...form.register('visualStyle')}
-                    placeholder="Ex: Cinemático com cores vibrantes, animação 2D estilo retrô, fotografia documental em preto e branco."
-                    className="bg-input placeholder-muted-foreground"
-                  />
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
-                <CardHeader>
-                  <CardTitle className="text-xl">6. Ângulo da Câmera/Composição</CardTitle>
-                  <CardDescription>Como a cena deve ser enquadrada?</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Input
-                    {...form.register('cameraAngle')}
-                    placeholder="Ex: Close-up no rosto do personagem, tomada aérea mostrando a paisagem, travelling acompanhando o movimento."
-                    className="bg-input placeholder-muted-foreground"
-                  />
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
-                <CardHeader>
-                  <CardTitle className="text-xl">7. Detalhes Adicionais</CardTitle>
-                  <CardDescription>Qualquer outra informação importante para o prompt.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Textarea
-                    {...form.register('additionalDetails')}
-                    placeholder="Ex: Efeitos de partículas mágicas, transição suave entre cenas, trilha sonora épica e inspiradora."
-                    className="min-h-[100px] bg-input placeholder-muted-foreground"
-                  />
-                </CardContent>
-              </Card>
-
-              <Button type="submit" size="lg" className="w-full shine-button bg-primary hover:bg-primary/90" disabled={isLoading}>
-                {isLoading ? (
-                  <>
-                    <Wand2 className="mr-2 h-5 w-5 animate-pulse" /> Gerando com IA...
-                  </>
-                ) : (
-                  <>
-                    <Wand2 className="mr-2 h-5 w-5" /> Gerar Prompt Final
-                  </>
-                )}
+ <Suspense fallback={<div>Loading...</div>}>
+      <div className="min-h-screen flex flex-col bg-background text-foreground">
+        <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="container flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <Link href="/dashboard" className="flex items-center space-x-2">
+              <Image
+                src="https://i.imgur.com/ny9FJ1z.png"
+                alt="VEO3 Academy Logo"
+                width={50}
+                height={18}
+                className="object-contain"
+                 style={{
+                  maskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)',
+                }}
+                data-ai-hint="futuristic logo"
+              />
+            </Link>
+            <Link href="/dashboard/prompt-generator">
+              <Button variant="outline" className="shine-button">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Voltar para Etapa Inicial
               </Button>
-            </form>
-
-            {/* Telinha para o resultado do prompt */}
-            <Card className="mt-10 bg-card/80 backdrop-blur-md border-primary/50 shadow-xl">
-              <CardHeader>
-                <CardTitle className="text-2xl text-primary">Seu Prompt Gerado:</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="p-4 bg-input rounded-md text-foreground whitespace-pre-wrap break-words min-h-[100px] flex items-center justify-center">
-                  {isLoading ? (
-                    <span className="text-muted-foreground italic">Gerando com IA, aguarde...</span>
-                  ) : generatedPrompt ? (
-                    generatedPrompt
-                  ) : (
-                    <span className="text-muted-foreground">Seu prompt gerado pela IA aparecerá aqui.</span>
-                  )}
-                </div>
-                {generatedPrompt && !isLoading && (
-                  <Button onClick={copyToClipboard} variant="outline" className="w-full shine-button">
-                    <Copy className="mr-2 h-4 w-4" /> Copiar Prompt
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
+            </Link>
           </div>
-        </ScrollArea>
-      </main>
+        </header>
 
-      <Footer className="py-8 border-t border-border/50 mt-auto text-center text-muted-foreground text-sm" />
-    </div>
+        <main className="flex-grow container mx-auto py-8 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+          <ScrollArea className="w-full max-w-3xl h-[calc(100vh-10rem)]">
+            <div className="w-full">
+              <div className="text-center mb-10">
+                <h1 className="text-3xl sm:text-4xl font-bold text-primary flex items-center justify-center">
+                  <Rocket className="mr-3 h-8 w-8" />
+                  Personalize e Gere seu Prompt com IA
+                </h1>
+                <p className="text-muted-foreground mt-2 text-lg">Ajuste os detalhes e deixe nossa IA criar o prompt perfeito para Veo 3!</p>
+              </div>
+
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
+                  <CardHeader>
+                    <CardTitle className="text-xl">1. Qual o tipo de vídeo? <span className="text-primary">*</span></CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <RadioGroup
+                      value={form.watch('videoType')} 
+                      onValueChange={(value) => form.setValue('videoType', value, { shouldValidate: true })}
+                      className="grid grid-cols-2 sm:grid-cols-3 gap-4"
+                    >
+                      {videoTypeOptions.map((option) => (
+                        <Label
+                          key={option.id}
+                          htmlFor={`videoType-custom-${option.id}`}
+                          className="flex items-center space-x-3 p-3 border border-input rounded-md hover:bg-accent hover:text-accent-foreground cursor-pointer transition-colors bg-background/50"
+                        >
+                          <RadioGroupItem value={option.id} id={`videoType-custom-${option.id}`} />
+                          <option.icon className="h-5 w-5 text-primary" />
+                          <span>{option.label}</span>
+                        </Label>
+                      ))}
+                    </RadioGroup>
+                    {form.formState.errors.videoType && (
+                      <p className="text-sm font-medium text-destructive mt-2">{form.formState.errors.videoType.message}</p>
+                    )}
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
+                  <CardHeader>
+                    <CardTitle className="text-xl">2. Onde se passa a cena? <span className="text-primary">*</span></CardTitle>
+                    <CardDescription>Descreva o lugar, horário, iluminação, atmosfera predominante.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Textarea
+                      {...form.register('sceneDescription')}
+                      placeholder="Ex: Uma floresta mágica ao entardecer, com raios de sol filtrando pelas árvores e uma névoa misteriosa no chão."
+                      className="min-h-[100px] bg-input placeholder-muted-foreground"
+                    />
+                    {form.formState.errors.sceneDescription && (
+                      <p className="text-sm font-medium text-destructive mt-2">{form.formState.errors.sceneDescription.message}</p>
+                    )}
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
+                  <CardHeader>
+                    <CardTitle className="text-xl">3. Personagens/Objetos Principais</CardTitle>
+                    <CardDescription>Quem ou o quê é o foco principal do vídeo?</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Input
+                      {...form.register('mainSubjects')}
+                      placeholder="Ex: Um jovem aventureiro com roupas de explorador, um dragão majestoso, um artefato antigo brilhante."
+                      className="bg-input placeholder-muted-foreground"
+                    />
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
+                  <CardHeader>
+                    <CardTitle className="text-xl">4. Ações/Eventos Principais</CardTitle>
+                    <CardDescription>O que está acontecendo no vídeo?</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Input
+                      {...form.register('mainActions')}
+                      placeholder="Ex: O aventureiro descobre o artefato, o dragão sobrevoa as montanhas, uma perseguição em alta velocidade."
+                      className="bg-input placeholder-muted-foreground"
+                    />
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
+                  <CardHeader>
+                    <CardTitle className="text-xl">5. Estilo Visual</CardTitle>
+                    <CardDescription>Qual a estética desejada? (cinemático, aquarela, neon, etc.)</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Input
+                      {...form.register('visualStyle')}
+                      placeholder="Ex: Cinemático com cores vibrantes, animação 2D estilo retrô, fotografia documental em preto e branco."
+                      className="bg-input placeholder-muted-foreground"
+                    />
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
+                  <CardHeader>
+                    <CardTitle className="text-xl">6. Ângulo da Câmera/Composição</CardTitle>
+                    <CardDescription>Como a cena deve ser enquadrada?</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Input
+                      {...form.register('cameraAngle')}
+                      placeholder="Ex: Close-up no rosto do personagem, tomada aérea mostrando a paisagem, travelling acompanhando o movimento."
+                      className="bg-input placeholder-muted-foreground"
+                    />
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-card/70 backdrop-blur-md border border-border/30 shadow-xl">
+                  <CardHeader>
+                    <CardTitle className="text-xl">7. Detalhes Adicionais</CardTitle>
+                    <CardDescription>Qualquer outra informação importante para o prompt.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Textarea
+                      {...form.register('additionalDetails')}
+                      placeholder="Ex: Efeitos de partículas mágicas, transição suave entre cenas, trilha sonora épica e inspiradora."
+                      className="min-h-[100px] bg-input placeholder-muted-foreground"
+                    />
+                  </CardContent>
+                </Card>
+
+                <Button type="submit" size="lg" className="w-full shine-button bg-primary hover:bg-primary/90" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Wand2 className="mr-2 h-5 w-5 animate-pulse" /> Gerando com IA...
+                    </>
+                  ) : (
+                    <>
+                      <Wand2 className="mr-2 h-5 w-5" /> Gerar Prompt Final
+                    </>
+                  )}
+                </Button>
+              </form>
+
+              {/* Telinha para o resultado do prompt */}
+              <Card className="mt-10 bg-card/80 backdrop-blur-md border-primary/50 shadow-xl">
+                <CardHeader>
+                  <CardTitle className="text-2xl text-primary">Seu Prompt Gerado:</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="p-4 bg-input rounded-md text-foreground whitespace-pre-wrap break-words min-h-[100px] flex items-center justify-center">
+                    {isLoading ? (
+                      <span className="text-muted-foreground italic">Gerando com IA, aguarde...</span>
+                    ) : generatedPrompt ? (
+                      generatedPrompt
+                    ) : (
+                      <span className="text-muted-foreground">Seu prompt gerado pela IA aparecerá aqui.</span>
+                    )}
+                  </div>
+                  {generatedPrompt && !isLoading && (
+                    <Button onClick={copyToClipboard} variant="outline" className="w-full shine-button">
+                      <Copy className="mr-2 h-4 w-4" /> Copiar Prompt
+                    </Button>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </ScrollArea>
+        </main>
+
+        <Footer className="py-8 border-t border-border/50 mt-auto text-center text-muted-foreground text-sm" />
+      </div>
+ </Suspense>
   );
 }
     
