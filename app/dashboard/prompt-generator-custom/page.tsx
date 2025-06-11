@@ -61,6 +61,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function PromptGeneratorCustomPage() {
   const [generatedPrompt, setGeneratedPrompt] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const searchParams = useSearchParams();
@@ -79,29 +80,31 @@ export default function PromptGeneratorCustomPage() {
   });
 
   useEffect(() => {
-    const initialValues: Partial<FormValues> = {};
-    // Add this check to ensure searchParams is not null during SSR
-    if (!searchParams) {
- return;
-    }
-    const videoTypeParam = searchParams.get('videoType');
-    const sceneDescriptionParam = searchParams.get('sceneDescription');
-    const mainSubjectsParam = searchParams.get('mainSubjects');
-    const mainActionsParam = searchParams.get('mainActions');
-    const visualStyleParam = searchParams.get('visualStyle');
-    const cameraAngleParam = searchParams.get('cameraAngle');
-    const additionalDetailsParam = searchParams.get('additionalDetails');
+    setIsClient(true);
+  }, []);
 
-    if (videoTypeParam) initialValues.videoType = videoTypeParam;
-    if (sceneDescriptionParam) initialValues.sceneDescription = sceneDescriptionParam;
-    if (mainSubjectsParam) initialValues.mainSubjects = mainSubjectsParam;
-    if (mainActionsParam) initialValues.mainActions = mainActionsParam;
-    if (visualStyleParam) initialValues.visualStyle = visualStyleParam;
-    if (cameraAngleParam) initialValues.cameraAngle = cameraAngleParam;
-    if (additionalDetailsParam) initialValues.additionalDetails = additionalDetailsParam;
-    
-    if (Object.keys(initialValues).length > 0) {
-        form.reset(initialValues);
+  useEffect(() => {
+    if (isClient && searchParams) {
+      const initialValues: Partial<FormValues> = {};
+      const videoTypeParam = searchParams.get('videoType');
+      const sceneDescriptionParam = searchParams.get('sceneDescription');
+      const mainSubjectsParam = searchParams.get('mainSubjects');
+      const mainActionsParam = searchParams.get('mainActions');
+      const visualStyleParam = searchParams.get('visualStyle');
+      const cameraAngleParam = searchParams.get('cameraAngle');
+      const additionalDetailsParam = searchParams.get('additionalDetails');
+
+      if (videoTypeParam) initialValues.videoType = videoTypeParam;
+      if (sceneDescriptionParam) initialValues.sceneDescription = sceneDescriptionParam;
+      if (mainSubjectsParam) initialValues.mainSubjects = mainSubjectsParam;
+      if (mainActionsParam) initialValues.mainActions = mainActionsParam;
+      if (visualStyleParam) initialValues.visualStyle = visualStyleParam;
+      if (cameraAngleParam) initialValues.cameraAngle = cameraAngleParam;
+      if (additionalDetailsParam) initialValues.additionalDetails = additionalDetailsParam;
+      
+      if (Object.keys(initialValues).length > 0) {
+          form.reset(initialValues);
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, form]); 

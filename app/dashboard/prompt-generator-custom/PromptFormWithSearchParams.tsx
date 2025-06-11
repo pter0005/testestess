@@ -43,6 +43,7 @@ type FormValues = z.infer<typeof formSchema>;
 const PromptFormWithSearchParams: React.FC<PromptFormWithSearchParamsProps> = ({ videoTypeOptions }) => {
     const [generatedPrompt, setGeneratedPrompt] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isClient, setIsClient] = useState(false); // New state for client-side check
     const { toast } = useToast();
     const searchParams = useSearchParams();
 
