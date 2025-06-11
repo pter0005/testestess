@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -35,6 +36,10 @@ import { useToast } from '@/hooks/use-toast';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useSearchParams } from 'next/navigation';
 
+// Dynamically import the PromptFormWithSearchParams component
+// This ensures it's only loaded and executed on the client side
+// Moved videoTypeOptions here as PromptFormWithSearchParams needs it as a prop
+// Also removed the import from PromptFormWithSearchParams
 const videoTypeOptions = [
   { id: 'acao', label: 'Ação', icon: Clapperboard },
   { id: 'romantico', label: 'Romântico', icon: Heart },
@@ -147,7 +152,7 @@ export default function PromptGeneratorCustomPage() {
   };
 
   return (
- <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>Loading...</div>}>
       <div className="min-h-screen flex flex-col bg-background text-foreground">
         <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container flex h-16 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
