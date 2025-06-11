@@ -107,7 +107,7 @@ export default function DashboardPage() {
       <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="mx-auto flex h-16 w-full max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="icon" onClick={() => router.back()} className="text-foreground/70 hover:text-foreground mr-2">
+            <Button variant="ghost" size="icon" onClick={() => router.back()} className="text-foreground/70 hover:text-foreground mr-2" aria-label="Voltar">
               <ArrowLeft className="h-5 w-5" />
             </Button>
             <Link href="/dashboard" className="flex items-center space-x-2">
@@ -118,13 +118,13 @@ export default function DashboardPage() {
             </Link>
           </div>
           <div className="flex items-center sm:space-x-4 space-x-2">
-            <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground">
+            <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground" aria-label="Buscar">
               <Search className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground">
+            <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground" aria-label="Notificações">
               <Bell className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground">
+            <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground" aria-label="Perfil do Usuário">
               <UserCircle className="h-6 w-6" />
             </Button>
             <Button 
