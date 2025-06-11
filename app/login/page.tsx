@@ -21,7 +21,7 @@ export default function LoginPage() {
         </div>
         <Card className="w-full bg-card/80 backdrop-blur-md shadow-2xl rounded-lg border-border/40">
           <CardHeader className="pt-6 pb-4">
-            <CardTitle className="text-2xl font-bold text-center text-foreground">Acesso Restrito</CardTitle>
+            <CardTitle className="text-2xl font-bold text-center text-foreground">LOGIN</CardTitle>
             <CardDescription className="text-center text-sm text-muted-foreground pt-1">
               Insira suas credenciais para continuar.
             </CardDescription>
