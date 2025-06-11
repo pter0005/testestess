@@ -115,14 +115,16 @@ export default function PromptGeneratorCustomPage() {
   }, [searchParams, form]); 
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    // The `generateVeo3Prompt` function expects input matching `GenerateVeo3PromptInput`.
+    // `FormValues` is a subset of the fields in `GenerateVeo3PromptInput`.
+    // We cast `data` to `GenerateVeo3PromptInput` here.
+    // The AI flow (`generateVeo3Prompt`) uses `.partial()` on its input schema,
+    // which allows it to validate objects that only contain *some* of the schema's keys,
+    // as long as the keys that are present match the schema. This makes it compatible
+    // with the `FormValues` subset from this specific form.
     setIsLoading(true);
     setGeneratedPrompt(null);
     try {
-      // A função generateVeo3Prompt espera um tipo GenerateVeo3PromptInput.
-      // Como FormValues tem um subconjunto dos campos, precisamos garantir a compatibilidade.
-      // Para este exemplo, vou assumir que o schema de FormValues é um subconjunto válido
-      // ou que generateVeo3Prompt pode lidar com os campos opcionais ausentes.
-      // Se os schemas forem muito diferentes, pode ser necessário um mapeamento aqui.
       const result = await generateVeo3Prompt(data as GenerateVeo3PromptInput);
       setGeneratedPrompt(result.generatedPrompt);
       toast({
