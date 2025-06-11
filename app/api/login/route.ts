@@ -1,11 +1,12 @@
+
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {
   const { email, password } = await request.json();
 
-  // Fake authentication logic
-  if (email === 'test@example.com' && password === 'password123') {
+  // Fake authentication logic - updated credentials
+  if (email === 'teamveo3aluno@acesso.com' && password === 'acessteam123@') {
     const cookieStore = cookies();
     cookieStore.set('auth_token', 'authenticated', {
       httpOnly: true, // Recommended for security
@@ -17,6 +18,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } else {
-    return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 401 });
+    return NextResponse.json({ success: false, message: 'Email ou senha incorretos.' }, { status: 401 });
   }
 }
