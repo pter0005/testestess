@@ -1,15 +1,16 @@
 
 'use client'; 
 
-import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Footer from '@/components/layout/Footer';
 import { ModuleCard, type ModuleCardProps } from '@/components/dashboard/ModuleCard';
-import { UserCircle, Search, Bell, ArrowLeft, Bot, ShoppingBag, Star, PlayCircle, BrainCircuit, MessageSquare, UploadCloud } from 'lucide-react'; 
+import { UserCircle, Search, Bell, ArrowLeft, Bot, ShoppingBag, Star, PlayCircle, Loader2 } from 'lucide-react'; 
 import InteractiveBackground from '@/components/common/InteractiveBackground';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
 
-import { fakeLogout } from '@/lib/auth';
 const modulesData: Omit<ModuleCardProps, 'aulasCount'>[] = [
   {
     title: 'O Segredo da VEO3',
@@ -60,6 +61,39 @@ const modulesData: Omit<ModuleCardProps, 'aulasCount'>[] = [
 
 export default function DashboardPage() {
   const router = useRouter();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      const response = await fetch('/api/logout', {
+        method: 'POST',
+      });
+      const result = await response.json();
+      if (result.success) {
+        toast({
+          title: 'Logout Bem-sucedido',
+          description: 'Você foi desconectado.',
+        });
+        router.push('/login');
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Erro no Logout',
+          description: result.message || 'Não foi possível fazer logout.',
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro de Rede',
+        description: 'Não foi possível conectar ao servidor para logout.',
+      });
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground relative">
@@ -93,9 +127,15 @@ export default function DashboardPage() {
             <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground">
               <UserCircle className="h-6 w-6" />
             </Button>
-            <Button variant="outline" className="shine-button text-sm px-3 py-1.5 h-auto" onClick={() => { fakeLogout(); router.push('/login'); }}>
-                Sair
-              </Button>
+            <Button 
+              variant="outline" 
+              className="shine-button text-sm px-3 py-1.5 h-auto" 
+              onClick={handleLogout}
+              disabled={isLoggingOut}
+            >
+              {isLoggingOut ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+              Sair
+            </Button>
           </div>
         </div>
       </header>
