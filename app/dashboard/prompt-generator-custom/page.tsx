@@ -80,6 +80,10 @@ export default function PromptGeneratorCustomPage() {
 
   useEffect(() => {
     const initialValues: Partial<FormValues> = {};
+    // Add this check to ensure searchParams is not null during SSR
+    if (!searchParams) {
+ return;
+    }
     const videoTypeParam = searchParams.get('videoType');
     const sceneDescriptionParam = searchParams.get('sceneDescription');
     const mainSubjectsParam = searchParams.get('mainSubjects');
