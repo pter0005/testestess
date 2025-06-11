@@ -11,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'PTER-VEO3 Access', 
-  description: 'Login page for PTER-VEO3 Academy', 
+  title: 'PTER-VEO3 Access',
+  description: 'Login page for PTER-VEO3 Academy',
 };
 
 export default function RootLayout({

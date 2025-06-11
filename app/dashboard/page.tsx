@@ -2,7 +2,6 @@
 'use client'; 
 
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Footer from '@/components/layout/Footer';
 import { ModuleCard, type ModuleCardProps } from '@/components/dashboard/ModuleCard';
@@ -10,6 +9,7 @@ import { UserCircle, Search, Bell, ArrowLeft, Bot, ShoppingBag, Star, PlayCircle
 import InteractiveBackground from '@/components/common/InteractiveBackground';
 import { useRouter } from 'next/navigation';
 
+import { fakeLogout } from '@/lib/auth';
 const modulesData: Omit<ModuleCardProps, 'aulasCount'>[] = [
   {
     title: 'O Segredo da VEO3',
@@ -93,11 +93,9 @@ export default function DashboardPage() {
             <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground">
               <UserCircle className="h-6 w-6" />
             </Button>
-            <Link href="/login">
-              <Button variant="outline" className="shine-button text-sm px-3 py-1.5 h-auto">
+            <Button variant="outline" className="shine-button text-sm px-3 py-1.5 h-auto" onClick={() => { fakeLogout(); router.push('/login'); }}>
                 Sair
               </Button>
-            </Link>
           </div>
         </div>
       </header>

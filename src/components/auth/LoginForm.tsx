@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,49 +20,73 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from '@/hooks/use-toast';
 
-const formSchema = z.object({
+const loginFormSchema = z.object({
   email: z.string().email({
     message: "Por favor, insira um email válido.",
   }),
-  password: z.string().min(1, { 
+  password: z.string().min(1, {
     message: "A senha é obrigatória.",
   }),
 });
 
-const CORRECT_EMAIL = "teamveo3aluno@acesso.com";
-const CORRECT_PASSWORD = "acessteam123@";
+type LoginFormValues = z.infer<typeof loginFormSchema>;
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [credentialsError, setCredentialsError] = useState<string | null>(null);
   const { toast } = useToast();
-  const router = useRouter(); 
+  const router = useRouter();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      email: "", // O placeholder cuidará da exibição inicial
+      email: "",
       password: "",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: LoginFormValues) {
     setIsLoggingIn(true);
-    await new Promise(resolve => setTimeout(resolve, 500)); 
+    setCredentialsError(null);
 
-    if (values.email === CORRECT_EMAIL && values.password === CORRECT_PASSWORD) {
-      toast({
-        title: "Login Bem-sucedido!",
-        description: "Redirecionando para o dashboard...",
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
       });
-      router.push('/dashboard'); 
-    } else {
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast({
+          title: "Login Bem-sucedido!",
+          description: "Redirecionando para o dashboard...",
+        });
+        // The API route sets the httpOnly cookie.
+        // We can directly redirect.
+        router.push('/dashboard');
+      } else {
+        const errorMessage = result.message || "Email ou senha incorretos.";
+        setCredentialsError(errorMessage);
+        toast({
+          variant: "destructive",
+          title: "Erro de Login",
+          description: errorMessage,
+        });
+      }
+    } catch (error) {
+      console.error("Login API call failed:", error);
+      const errorMessage = "Ocorreu um erro ao tentar fazer login. Verifique sua conexão.";
+      setCredentialsError(errorMessage);
       toast({
         variant: "destructive",
-        title: "Erro de Login",
-        description: "Credenciais inválidas. Por favor, tente novamente.",
+        title: "Erro de Rede",
+        description: errorMessage,
       });
-      setIsLoggingIn(false); 
+    } finally {
+      setIsLoggingIn(false);
     }
   }
 
@@ -74,14 +98,15 @@ export default function LoginForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-muted-foreground text-xs font-normal">Email</FormLabel>
+              <FormLabel className="text-muted-foreground/90 text-xs font-normal">Email</FormLabel>
               <FormControl>
-                <Input 
+                <Input
                   type="email"
-                  placeholder="teamveo3aluno@acesso.com" 
-                  {...field} 
-                  className="bg-input text-input-foreground border-gray-300 placeholder-gray-500 focus:bg-white focus:border-primary text-sm h-10" 
+                  placeholder="seuemail@example.com"
+                  {...field}
+                  className="bg-input text-input-foreground border-border/50 placeholder-muted-foreground/70 focus:border-primary text-sm h-10"
                   disabled={isLoggingIn}
+                  autoComplete="email"
                 />
               </FormControl>
               <FormMessage className="text-xs" />
@@ -93,21 +118,22 @@ export default function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-muted-foreground text-xs font-normal">Senha</FormLabel>
+              <FormLabel className="text-muted-foreground/90 text-xs font-normal">Senha</FormLabel>
               <FormControl>
                 <div className="relative">
-                  <Input 
-                    type={showPassword ? "text" : "password"} 
-                    placeholder="••••••••" 
-                    {...field} 
-                    className="bg-input text-input-foreground border-gray-300 placeholder-gray-500 focus:bg-white focus:border-primary pr-10 text-sm h-10"
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    {...field}
+                    className="bg-input text-input-foreground border-border/50 placeholder-muted-foreground/70 focus:border-primary pr-10 text-sm h-10"
                     disabled={isLoggingIn}
+                    autoComplete="current-password"
                   />
                   <Button
                     type="button"
                     variant="ghost"
                     size="icon"
-                    className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-gray-400 hover:text-gray-600" 
+                    className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground/80 hover:text-foreground"
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
                     disabled={isLoggingIn}
@@ -120,10 +146,13 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
-        <Button 
-          type="submit" 
-          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium shine-button text-sm py-2.5 h-10" 
-          disabled={isLoggingIn}
+        {credentialsError && (
+            <p className="text-destructive text-sm text-center pt-1">{credentialsError}</p>
+        )}
+        <Button
+          type="submit"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shine-button text-sm py-2.5 h-10"
+          disabled={isLoggingIn || (form.formState.isSubmitted && !form.formState.isValid)}
         >
           {isLoggingIn ? (
             <>

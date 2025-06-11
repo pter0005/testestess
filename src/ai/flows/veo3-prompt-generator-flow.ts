@@ -204,7 +204,8 @@ function constructDetailedVeo3Prompt(input: GenerateVeo3PromptInput): string {
 export async function generateVeo3Prompt(input: GenerateVeo3PromptInput): Promise<GenerateVeo3PromptOutput> {
   console.log("Executing generateVeo3Prompt with full logic. Input:", JSON.stringify(input, null, 2));
   try {
-    const validatedInput = GenerateVeo3PromptInputSchema.partial().parse(input);
+    const baseSchema = GenerateVeo3PromptInputSchema.unwrap(); // Remove os efeitos para usar .partial()
+    const validatedInput = baseSchema.partial().parse(input);
     const constructedPrompt = constructDetailedVeo3Prompt(validatedInput);
     
     console.log("Constructed Prompt:", constructedPrompt);
