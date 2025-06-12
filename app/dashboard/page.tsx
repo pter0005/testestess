@@ -9,7 +9,6 @@ import Footer from '@/components/layout/Footer';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import InteractiveBackground from '@/components/common/InteractiveBackground'; // Importar o InteractiveBackground
 
 const modulesData: Omit<ModuleCardProps, 'aulasCount'>[] = [
   {
@@ -96,7 +95,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground relative">
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
       <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="mx-auto flex h-16 w-full max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="text-xl font-bold tracking-tight">
@@ -116,10 +115,9 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <main className="flex-1 w-full p-4 sm:p-6 lg:p-8 relative" id="hero-section-content"> {/* Added id for InteractiveBackground height calculation */}
-        <InteractiveBackground />
-        
-        <section className="relative z-10 py-12 sm:py-16 text-center mb-10 sm:mb-12">
+      <main className="flex-1 w-full p-4 sm:p-6 lg:p-8">
+        {/* Seção de Boas Vindas Simplificada ou Removida Temporariamente */}
+        {/* <section className="py-12 sm:py-16 text-center mb-10 sm:mb-12">
           <div className="mx-auto w-full max-w-screen-md">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-3 sm:mb-4">
               Seja Bem Vindo(a)
@@ -131,9 +129,9 @@ export default function DashboardPage() {
               By - TEAMVEO3
             </p>
           </div>
-        </section>
+        </section> */}
 
-        <section className="relative z-10 py-8 sm:py-12">
+        <section className="py-8 sm:py-12">
           <div className="mx-auto w-full max-w-screen-xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 sm:mb-8 text-left">
               Módulos
@@ -147,7 +145,7 @@ export default function DashboardPage() {
         </section>
       </main>
 
-      <Footer className="py-8 border-t border-border/50 mt-auto relative z-20" />
+      <Footer className="py-8 border-t border-border/50 mt-auto" />
     </div>
   );
 }
