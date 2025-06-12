@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from 'next/link';
@@ -43,7 +44,7 @@ export default function SegredoDaVeo3AulaPage() {
         
         <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 items-start">
           {/* Coluna do Vídeo */}
-          <div className="lg:w-3/4 w-full"> {/* Updated width */}
+          <div className="lg:w-3/4 w-full">
             <div 
               className="w-full aspect-video rounded-xl shadow-2xl border border-primary/30 bg-card relative"
               style={{
@@ -67,12 +68,12 @@ export default function SegredoDaVeo3AulaPage() {
           </div>
           
           {/* Coluna da Descrição */}
-          <div className="lg:w-1/4 w-full"> {/* Updated width */}
+          <div className="lg:w-1/4 w-full">
             <div
               className="
                 w-full 
                 bg-card/70 backdrop-blur-md p-4 sm:p-6 rounded-lg shadow-lg border border-border/30
-                text-left" // Removed lg:min-h-[calc(9/16*100%)]
+                text-left"
             >
               <h2 className="text-lg sm:text-xl font-semibold mb-3 text-foreground">Sobre esta aula</h2>
               <p className="text-sm sm:text-base text-foreground/80 leading-relaxed">
