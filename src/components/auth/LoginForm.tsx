@@ -38,6 +38,7 @@ export default function LoginForm() {
   const { toast } = useToast();
   const router = useRouter();
 
+  // Initialize the form using useForm hook
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -63,7 +64,8 @@ export default function LoginForm() {
           title: 'Login Bem-sucedido!',
           description: 'Redirecionando para o dashboard...',
         });
-        router.push('/dashboard'); // Redireciona após o sucesso da API e definição do cookie
+        router.push('/dashboard'); 
+        return; 
       } else {
         setCredentialsError(result.message || 'Email ou senha incorretos.');
         toast({
@@ -71,6 +73,7 @@ export default function LoginForm() {
           title: 'Falha no Login',
           description: result.message || 'Verifique suas credenciais.',
         });
+        return;
       }
     } catch (error) {
       console.error('Login API error:', error);
@@ -80,6 +83,7 @@ export default function LoginForm() {
         title: 'Erro de Rede',
         description: 'Não foi possível conectar ao servidor.',
       });
+      return;
     } finally {
       setIsLoggingIn(false);
     }
