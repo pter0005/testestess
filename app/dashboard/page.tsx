@@ -9,6 +9,7 @@ import Footer from '@/components/layout/Footer';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import InteractiveBackground from '@/components/common/InteractiveBackground'; // Importar o InteractiveBackground
 
 const modulesData: Omit<ModuleCardProps, 'aulasCount'>[] = [
   {
@@ -95,8 +96,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
-      {/* Cabeçalho Simplificado Apenas com Logout */}
+    <div className="min-h-screen flex flex-col bg-background text-foreground relative">
       <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="mx-auto flex h-16 w-full max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="text-xl font-bold tracking-tight">
@@ -116,12 +116,28 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <main className="flex-1 w-full p-4 sm:p-6 lg:p-8">
-        <section className="py-8 sm:py-12">
-          <div className="mx-auto w-full max-w-screen-xl">
-            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 sm:mb-8 text-center">
-              Módulos do Curso
+      <main className="flex-1 w-full p-4 sm:p-6 lg:p-8 relative" id="hero-section-content"> {/* Added id for InteractiveBackground height calculation */}
+        <InteractiveBackground />
+        
+        <section className="relative z-10 py-12 sm:py-16 text-center mb-10 sm:mb-12">
+          <div className="mx-auto w-full max-w-screen-md">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-3 sm:mb-4">
+              Seja Bem Vindo(a)
             </h1>
+            <p className="text-lg sm:text-xl text-muted-foreground mb-2 sm:mb-3">
+              Tudo sobre VEO3 e Técnicas de IA
+            </p>
+            <p className="text-sm text-primary font-medium">
+              By - TEAMVEO3
+            </p>
+          </div>
+        </section>
+
+        <section className="relative z-10 py-8 sm:py-12">
+          <div className="mx-auto w-full max-w-screen-xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 sm:mb-8 text-left">
+              Módulos
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {modulesData.map((module) => (
                 <ModuleCard key={module.title} {...module as ModuleCardProps} />
@@ -131,7 +147,7 @@ export default function DashboardPage() {
         </section>
       </main>
 
-      <Footer className="py-8 border-t border-border/50 mt-auto relative z-[2]" />
+      <Footer className="py-8 border-t border-border/50 mt-auto relative z-20" />
     </div>
   );
 }
