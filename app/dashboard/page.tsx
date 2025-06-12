@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import Footer from '@/components/layout/Footer';
 import { ModuleCard, type ModuleCardProps } from '@/components/dashboard/ModuleCard';
 import { UserCircle, Search, Bell, ArrowLeft, Bot, ShoppingBag, Star, PlayCircle, Loader2 } from 'lucide-react'; 
-// import InteractiveBackground from '@/components/common/InteractiveBackground'; // Temporarily commented out
+import InteractiveBackground from '@/components/common/InteractiveBackground'; // Re-enabled
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
@@ -97,14 +97,13 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground relative">
-      {/* 
       <div
         className="absolute inset-0 pointer-events-none z-0"
         style={{
           boxShadow: '0 0 40px 10px hsla(var(--primary), 0.1), 0 0 60px 20px hsla(var(--primary), 0.06) inset, 0 0 15px 3px hsla(var(--primary), 0.08)'
         }}
       /> 
-      */}
+      
 
       <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="mx-auto flex h-16 w-full max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -146,7 +145,7 @@ export default function DashboardPage() {
         <section
           className="relative border-b border-border/30 overflow-hidden"
         >
-          {/* <InteractiveBackground /> */} {/* Temporarily commented out */}
+          <InteractiveBackground />
           <div
             id="hero-section-content"
             className="relative z-[2] mx-auto w-full max-w-screen-xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
