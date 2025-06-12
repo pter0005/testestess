@@ -1,12 +1,12 @@
 
-'use client'; 
+'use client';
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import Footer from '@/components/layout/Footer';
 import { ModuleCard, type ModuleCardProps } from '@/components/dashboard/ModuleCard';
-import { UserCircle, Search, Bell, ArrowLeft, Bot, ShoppingBag, Star, PlayCircle, Loader2 } from 'lucide-react'; 
-import InteractiveBackground from '@/components/common/InteractiveBackground'; // Re-enabled
+import { UserCircle, Search, Bell, ArrowLeft, Bot, ShoppingBag, Star, PlayCircle, Loader2 } from 'lucide-react';
+// import InteractiveBackground from '@/components/common/InteractiveBackground'; // Temporarily removed
+import Footer from '@/components/layout/Footer';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
@@ -51,10 +51,10 @@ const modulesData: Omit<ModuleCardProps, 'aulasCount'>[] = [
   {
     title: '1 ANO DE ASSINATURA GOOGLE VEO 3',
     description: 'Aula: Como obter sua assinatura gratuita.',
-    imageUrl: 'https://i.imgur.com/7Vd3YNK.png', 
+    imageUrl: 'https://i.imgur.com/7Vd3YNK.png',
     dataAiHint: 'subscription service technology',
     linkUrl: '/dashboard/assinatura-veo3',
-    buttonText: 'Assistir Aula', 
+    buttonText: 'Assistir Aula',
     buttonIcon: Star,
   },
 ];
@@ -96,15 +96,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground relative">
-      <div
-        className="absolute inset-0 pointer-events-none z-0"
-        style={{
-          boxShadow: '0 0 40px 10px hsla(var(--primary), 0.1), 0 0 60px 20px hsla(var(--primary), 0.06) inset, 0 0 15px 3px hsla(var(--primary), 0.08)'
-        }}
-      /> 
-      
-
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
       <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="mx-auto flex h-16 w-full max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-2">
@@ -128,9 +120,9 @@ export default function DashboardPage() {
             <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground" aria-label="Perfil do Usuário">
               <UserCircle className="h-6 w-6" />
             </Button>
-            <Button 
-              variant="outline" 
-              className="shine-button text-sm px-3 py-1.5 h-auto" 
+            <Button
+              variant="outline"
+              className="shine-button text-sm px-3 py-1.5 h-auto"
               onClick={handleLogout}
               disabled={isLoggingOut}
             >
@@ -141,37 +133,19 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <main className="flex-1 w-full">
-        <section
-          className="relative border-b border-border/30 overflow-hidden"
-        >
-          <InteractiveBackground />
-          <div
-            id="hero-section-content"
-            className="relative z-[2] mx-auto w-full max-w-screen-xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-4 text-center lg:text-left">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
-                  Seja Bem Vindo(a)
-                </h1>
-                <p className="text-lg sm:text-xl text-muted-foreground">
-                  Tudo sobre VEO3 e Técnicas de IA
-                </p>
-                <p className="text-sm text-muted-foreground/80">
-                  By - TEAMVEO3
-                </p>
-              </div>
-              <div className="hidden lg:block">
-              </div>
+      <main className="flex-1 w-full p-4 sm:p-6 lg:p-8">
+        <section className="py-8 sm:py-12 lg:py-16">
+          <div className="mx-auto w-full max-w-screen-xl">
+            <div className="text-center lg:text-left mb-8">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
+                Bem-vindo(a) ao Dashboard!
+              </h1>
+              <p className="text-md sm:text-lg text-muted-foreground mt-2">
+                Explore os módulos do curso abaixo.
+              </p>
             </div>
-          </div>
-        </section>
-
-        <section className="py-12 sm:py-16 lg:py-20 relative z-[2]">
-          <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-foreground mb-8 sm:mb-10">Módulos</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6"> 
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 sm:mb-8">Módulos</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {modulesData.map((module) => (
                 <ModuleCard key={module.title} {...module as ModuleCardProps} />
               ))}
