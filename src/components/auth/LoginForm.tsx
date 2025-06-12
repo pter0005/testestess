@@ -49,41 +49,36 @@ export default function LoginForm() {
   async function onSubmit(values: LoginFormValues) {
     setIsLoggingIn(true);
     setCredentialsError(null);
-
+    
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
       });
-
       const result = await response.json();
 
       if (result.success) {
         toast({
-          title: "Login Bem-sucedido!",
-          description: "Redirecionando para o dashboard...",
+          title: 'Login Bem-sucedido!',
+          description: 'Redirecionando para o dashboard...',
         });
-        // The API route sets the httpOnly cookie.
-        // We can directly redirect.
-        router.push('/dashboard');
+        router.push('/dashboard'); // Redireciona após o sucesso da API e definição do cookie
       } else {
-        const errorMessage = result.message || "Email ou senha incorretos.";
-        setCredentialsError(errorMessage);
+        setCredentialsError(result.message || 'Email ou senha incorretos.');
         toast({
-          variant: "destructive",
-          title: "Erro de Login",
-          description: errorMessage,
+          variant: 'destructive',
+          title: 'Falha no Login',
+          description: result.message || 'Verifique suas credenciais.',
         });
       }
     } catch (error) {
-      console.error("Login API call failed:", error);
-      const errorMessage = "Ocorreu um erro ao tentar fazer login. Verifique sua conexão.";
-      setCredentialsError(errorMessage);
+      console.error('Login API error:', error);
+      setCredentialsError('Erro ao tentar fazer login. Tente novamente mais tarde.');
       toast({
-        variant: "destructive",
-        title: "Erro de Rede",
-        description: errorMessage,
+        variant: 'destructive',
+        title: 'Erro de Rede',
+        description: 'Não foi possível conectar ao servidor.',
       });
     } finally {
       setIsLoggingIn(false);

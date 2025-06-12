@@ -4,8 +4,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ModuleCard, type ModuleCardProps } from '@/components/dashboard/ModuleCard';
-import { UserCircle, Search, Bell, ArrowLeft, Bot, ShoppingBag, Star, PlayCircle, Loader2 } from 'lucide-react';
-// import InteractiveBackground from '@/components/common/InteractiveBackground'; // Temporarily removed
+import { Bot, ShoppingBag, Star, PlayCircle, Loader2, LogOut } from 'lucide-react';
 import Footer from '@/components/layout/Footer';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -97,54 +96,32 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
+      {/* Cabeçalho Simplificado Apenas com Logout */}
       <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="mx-auto flex h-16 w-full max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="icon" onClick={() => router.back()} className="text-foreground/70 hover:text-foreground mr-2" aria-label="Voltar">
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-            <Link href="/dashboard" className="flex items-center space-x-2">
-              <div className="text-xl font-bold tracking-tight">
-                <span className="text-foreground">Team</span>
-                <span className="text-primary">VEO3</span>
-              </div>
-            </Link>
+          <div className="text-xl font-bold tracking-tight">
+            <span className="text-foreground">Team</span>
+            <span className="text-primary">VEO3</span> - Dashboard
           </div>
-          <div className="flex items-center sm:space-x-4 space-x-2">
-            <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground" aria-label="Buscar">
-              <Search className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground" aria-label="Notificações">
-              <Bell className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground" aria-label="Perfil do Usuário">
-              <UserCircle className="h-6 w-6" />
-            </Button>
-            <Button
-              variant="outline"
-              className="shine-button text-sm px-3 py-1.5 h-auto"
-              onClick={handleLogout}
-              disabled={isLoggingOut}
-            >
-              {isLoggingOut ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-              Sair
-            </Button>
-          </div>
+          <Button
+            variant="outline"
+            className="shine-button text-sm px-3 py-1.5 h-auto"
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+            aria-label="Sair da conta"
+          >
+            {isLoggingOut ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <LogOut className="mr-2 h-4 w-4" />}
+            Sair
+          </Button>
         </div>
       </header>
 
       <main className="flex-1 w-full p-4 sm:p-6 lg:p-8">
-        <section className="py-8 sm:py-12 lg:py-16">
+        <section className="py-8 sm:py-12">
           <div className="mx-auto w-full max-w-screen-xl">
-            <div className="text-center lg:text-left mb-8">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
-                Bem-vindo(a) ao Dashboard!
-              </h1>
-              <p className="text-md sm:text-lg text-muted-foreground mt-2">
-                Explore os módulos do curso abaixo.
-              </p>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 sm:mb-8">Módulos</h2>
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 sm:mb-8 text-center">
+              Módulos do Curso
+            </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {modulesData.map((module) => (
                 <ModuleCard key={module.title} {...module as ModuleCardProps} />
