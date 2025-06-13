@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation'; // useRouter not needed if using window.location
 
 import { Button } from "@/components/ui/button";
 import {
@@ -36,9 +36,8 @@ export default function LoginForm() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [credentialsError, setCredentialsError] = useState<string | null>(null);
   const { toast } = useToast();
-  const router = useRouter();
+  // const router = useRouter(); // useRouter not needed if using window.location
 
-  // Initialize the form using useForm hook
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -64,7 +63,8 @@ export default function LoginForm() {
           title: 'Login Bem-sucedido!',
           description: 'Redirecionando para o dashboard...',
         });
-        router.push('/dashboard'); 
+        // Force a full page reload and navigation
+        window.location.href = '/dashboard'; 
         return; 
       } else {
         setCredentialsError(result.message || 'Email ou senha incorretos.');
@@ -73,6 +73,7 @@ export default function LoginForm() {
           title: 'Falha no Login',
           description: result.message || 'Verifique suas credenciais.',
         });
+        setIsLoggingIn(false); // Ensure loading state is reset on failure
         return;
       }
     } catch (error) {
@@ -83,10 +84,12 @@ export default function LoginForm() {
         title: 'Erro de Rede',
         description: 'Não foi possível conectar ao servidor.',
       });
+      setIsLoggingIn(false); // Ensure loading state is reset on error
       return;
-    } finally {
-      setIsLoggingIn(false);
-    }
+    } 
+    // finally { // finally block might not be reached if window.location.href navigates away
+    //   setIsLoggingIn(false); 
+    // }
   }
 
   return (
