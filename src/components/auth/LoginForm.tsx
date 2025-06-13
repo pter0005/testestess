@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
-// import { useRouter } from 'next/navigation'; // useRouter not needed if using window.location
+import { useRouter } from 'next/navigation';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -35,7 +35,7 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [credentialsError, setCredentialsError] = useState<string | null>(null);
-  const { toast } = useToast();
+  const { toast } = useToast();  const router = useRouter();
   // const router = useRouter(); // useRouter not needed if using window.location
 
   const form = useForm<LoginFormValues>({
@@ -63,8 +63,13 @@ export default function LoginForm() {
           title: 'Login Bem-sucedido!',
           description: 'Redirecionando para o dashboard...',
         });
-        // Force a full page reload and navigation
-        window.location.href = '/dashboard'; 
+        try {
+          console.log('Attempting to redirect to /dashboard');
+          // Force a full page reload and navigation
+          router.push('/dashboard');
+        } catch (error) {
+          console.error('Error during redirection:', error);
+        }
         return; 
       } else {
         setCredentialsError(result.message || 'Email ou senha incorretos.');
@@ -77,6 +82,7 @@ export default function LoginForm() {
         return;
       }
     } catch (error) {
+      // Handle errors that occurred during the fetch or processing the response
       console.error('Login API error:', error);
       setCredentialsError('Erro ao tentar fazer login. Tente novamente mais tarde.');
       toast({
@@ -85,11 +91,8 @@ export default function LoginForm() {
         description: 'Não foi possível conectar ao servidor.',
       });
       setIsLoggingIn(false); // Ensure loading state is reset on error
-      return;
-    } 
-    // finally { // finally block might not be reached if window.location.href navigates away
-    //   setIsLoggingIn(false); 
-    // }
+    }  finally {
+    }
   }
 
   return (
