@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
       maxAge: 60 * 60 * 24 * 7, // Cookie expires in 1 week
       path: '/', // Cookie is valid for the entire site
-      sameSite: 'strict', // Recommended for security
+      sameSite: 'Lax', // Alterado de 'strict' para 'Lax'
     });
 
     return NextResponse.json({ success: true });
